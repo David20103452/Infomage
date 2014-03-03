@@ -75,7 +75,7 @@ public class InputViaText extends Activity {
 					File file = new File(MainActivity.CONFIG_PATH + "test.txt");
 					if (!file.exists()) {
 						try {
-							// ÔÚÖ¸¶¨µÄÎÄ¼þ¼ÐÖÐ´´½¨ÎÄ¼þ
+							// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 							file.createNewFile();
 						} catch (Exception e) {
 						}
@@ -99,16 +99,16 @@ public class InputViaText extends Activity {
 				// try {
 				// encoder.write(text);
 				// //JOptionPane.showMessageDialog(getContentPane(),
-				// "³É¹¦£¡ÒþÐ´ÎÄ¼þa.bmp±£´æÔÚ×ÀÃæ");
+				// "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Ä¼ï¿½a.bmpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				// } catch (Throwable e) {
-				// //JOptionPane.showMessageDialog(getContentPane(), "ÒþÐ´Ê§°Ü£¡");
+				// //JOptionPane.showMessageDialog(getContentPane(), "ï¿½ï¿½Ð´Ê§ï¿½Ü£ï¿½");
 				// // TODO Auto-generated catch block
 				// e.printStackTrace();
 				// }
 
 				if (!content.equals("") && !encodePassword.equals("")) {
 					mpDialog = new ProgressDialog(InputViaText.this);
-					mpDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// ÉèÖÃ·ç¸ñÎªÔ²ÐÎ½ø¶È
+					mpDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ÎªÔ²ï¿½Î½ï¿½ï¿½
 					mpDialog.setMessage("Please wait. Embeding...");
 					mpDialog.setCanceledOnTouchOutside(false);
 					mpDialog.show();
@@ -188,12 +188,12 @@ public class InputViaText extends Activity {
 
 	private Handler handler = new Handler() {
 		@Override
-		public void handleMessage(Message msg) {// handler½ÓÊÕµ½ÏûÏ¢ºó¾Í»áÖ´ÐÐ´Ë·½·¨
-			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-					Uri.parse("file://"
-							+ Environment.getExternalStorageDirectory()
-							+ "/encoded/")));
-			mpDialog.dismiss();// ¹Ø±ÕProgressDialog
+		public void handleMessage(Message msg) {// handlerï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Í»ï¿½Ö´ï¿½Ð´Ë·ï¿½ï¿½ï¿½
+//			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+//					Uri.parse("file://"
+//							+ Environment.getExternalStorageDirectory()
+//							+ "/encoded/")));
+			mpDialog.dismiss();// ï¿½Ø±ï¿½ProgressDialog
 			Intent intent = new Intent();
 			intent.setClass(InputViaText.this, Success.class);
 			intent.putExtra("outputPath", outputPath);
