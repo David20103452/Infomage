@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:padding="15dip">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/progress_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Choose Picture >"
+            android:textColor="#fff"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Write Message >"
+            android:textColor="#888"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Done"
+            android:textColor="#888"
+            android:textSize="15dip" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView1"
@@ -9,18 +47,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="26dp"
+        
         android:layout_marginTop="42dp"
-        android:text="Step 1:"
+        android:text="Step 1: Choose Picture"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="270dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:text="Take a picture" />
 
     <TextView
@@ -29,15 +67,17 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/textView1"
-        android:text="Choose a picture to embed text"
+        android:text="Please choose a picture to embed message. The formate of the picture could be .jpg or .bmp. You could either:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="270dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/button1"
         android:text="Upload a picture" />
+
+
 
 </RelativeLayout>
