@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="15dip" >
+
+    <TextView
+        android:id="@+id/progress_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="2dip"
+        android:text="Options >"
+        android:textColor="#fff"
+        android:textSize="15dip" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="Input Method"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:text="You can specify the way you input the message. You could either:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1" >
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="35dp" >
 
         <RadioButton
             android:id="@+id/radio0"
@@ -30,23 +50,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Input via file" />
-
-
     </RadioGroup>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="15dp"
+        android:text="Image Output Path"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/radioGroup1"
-        android:layout_marginTop="20dp"
-        android:text="Image Output Path"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:text="You can specify the path you want to save the embedded picture. Change the path below:"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="280dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView2"
@@ -57,11 +92,9 @@
 
     <Button
         android:id="@+id/save"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
         android:text="Save" />
 
 </RelativeLayout>

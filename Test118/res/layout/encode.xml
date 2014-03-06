@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="57dp"        
         android:text="Take a picture" />
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_below="@+id/textView1"
-        android:text="Please choose a picture to embed message. The formate of the picture could be .jpg or .bmp. You could either:"
+        android:text="Please choose a picture to embed message. The format of the picture could be .jpg or .bmp. You could either:"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button

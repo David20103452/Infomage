@@ -14,95 +14,145 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Success extends Activity {
 	String outputPath;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.success);
-        
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.success);
+
 		Bundle bundle = this.getIntent().getExtras();
 		outputPath = bundle.getString("outputPath");
-        
-        TextView path = (TextView)findViewById(R.id.textView2);
-        Button exitButton = (Button)findViewById(R.id.exit);
-        //TODO
-        //path.setText("/storage/sdcard0/encoded/"+"a.bmp");
-        
-        //For F5
-        path.setText(outputPath);
-        
-        exitButton.setOnClickListener(new View.OnClickListener() {
+
+		// TextView path = (TextView)findViewById(R.id.textView2);
+		Button exitButton = (Button) findViewById(R.id.button1);
+		Button shareButton = (Button) findViewById(R.id.button2);
+		ImageView imageView = (ImageView) findViewById(R.id.imgView);
+		imageView.setImageBitmap(BitmapFactory.decodeFile(outputPath));
+		// TODO
+		// path.setText("/storage/sdcard0/encoded/"+"a.bmp");
+
+		// For F5
+		// path.setText(outputPath);
+		Toast.makeText(getApplicationContext(), outputPath,
+				Toast.LENGTH_LONG).show();
+		
+		shareButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				//Success.this.finish();
-				//Intent intent = new Intent(Intent.ACTION_MAIN);
+				// send via email
+				Intent intent = new Intent(
+						android.content.Intent.ACTION_SEND);
+				// ï¿½ï¿½ï¿½ï¿½
+				// File file = new
+				// File("/storage/sdcard0/encoded/"+"a.bmp");
+				File file = new File(outputPath);
+				// ï¿½Õ¼ï¿½ï¿½ï¿½
+				// intent.putExtra(android.content.Intent.EXTRA_EMAIL,new
+				// String[] {"pop1030123@163.com"});
+				// ï¿½ï¿½ï¿½ï¿½
+				intent.putExtra(
+						android.content.Intent.EXTRA_SUBJECT,
+						"a.bmp");
+				// ï¿½ï¿½ï¿½ï¿½
+				// intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
+				intent.setType("application/octet-stream");
+				// ï¿½ï¿½ï¿½Þ·ï¿½È·ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// intent.setType(ï¿½ï¿½*/*ï¿½ï¿½);
+				// ï¿½ï¿½Ã»ï¿½Ð¸ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// intent.setType(ï¿½ï¿½plain/textï¿½ï¿½);
+				intent.putExtra(Intent.EXTRA_STREAM,
+						Uri.fromFile(file));
+				// NoteActivity.mNext_tab =
+				// NoteActivity.NOTE_SETTING;
+				startActivity(Intent.createChooser(intent,
+						"Mail Chooser"));
+			}
+		});
+
+		exitButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// Success.this.finish();
+				// Intent intent = new Intent(Intent.ACTION_MAIN);
 				Intent intent = new Intent();
 				intent.setClass(Success.this, MainActivity.class);
 				intent.addCategory(Intent.CATEGORY_HOME);
 				intent.putExtra("EXIT", true);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-				//System.exit(0);
-//				android.os.Process.killProcess(android.os.Process.myPid());
-				//finish();
-//				Intent intent = new Intent();
-//				intent.setClass(Success.this, MainActivity.class);
-//				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				intent.addCategory(Intent.CATEGORY_HOME);
-//				intent.putExtra("EXIT", false);
-//				startActivity(intent);
-				//android.os.Process.killProcess(android.os.Process.myPid());
+				// System.exit(0);
+				// android.os.Process.killProcess(android.os.Process.myPid());
+				// finish();
+				// Intent intent = new Intent();
+				// intent.setClass(Success.this, MainActivity.class);
+				// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				// intent.addCategory(Intent.CATEGORY_HOME);
+				// intent.putExtra("EXIT", false);
+				// startActivity(intent);
+				// android.os.Process.killProcess(android.os.Process.myPid());
 			}
-        });
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to send it via email now?")
-               .setCancelable(false)
-               .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-//       				Intent intent = new Intent();
-//    				intent.setClass(Success.this, Send.class);
-//    				startActivity(intent);
-                	   
-                		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        				// ¸½¼þ
-        				//File file = new File("/storage/sdcard0/encoded/"+"a.bmp");
-                		File file = new File(outputPath);
-        				// ÊÕ¼þÈË
-        				//intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] {"pop1030123@163.com"});
-        				// Ö÷Ìâ
-        				intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "a.bmp");
-        				// ÕýÎÄ
-        				//intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
-        				intent.setType("application/octet-stream");
-        				//µ±ÎÞ·¨È·ÈÏ·¢ËÍÀàÐÍµÄÊ±ºòÊ¹ÓÃÈçÏÂÓï¾ä
-        				//intent.setType(¡°*/*¡±);
-        				//µ±Ã»ÓÐ¸½¼þ,´¿ÎÄ±¾·¢ËÍÊ±Ê¹ÓÃÈçÏÂÓï¾ä
-        				//intent.setType(¡°plain/text¡±);
-        				intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-        				//NoteActivity.mNext_tab = NoteActivity.NOTE_SETTING;
-        				startActivity(Intent.createChooser(intent, "Mail Chooser"));
-                   }
-               })
-               .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                   }
-               });
-        AlertDialog alert = builder.create();
-        alert.setTitle("Success");  
-        alert.show();
-    }
-    
-    @Override  
-    protected void onDestroy() {  
-        // TODO Auto-generated method stub  
-        super.onDestroy();  
-        System.runFinalizersOnExit(true);  
-        System.exit(0);  
-    } 
+		});
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Do you want to send it via email now?")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// Intent intent = new Intent();
+								// intent.setClass(Success.this, Send.class);
+								// startActivity(intent);
+
+								Intent intent = new Intent(
+										android.content.Intent.ACTION_SEND);
+								// ï¿½ï¿½ï¿½ï¿½
+								// File file = new
+								// File("/storage/sdcard0/encoded/"+"a.bmp");
+								File file = new File(outputPath);
+								// ï¿½Õ¼ï¿½ï¿½ï¿½
+								// intent.putExtra(android.content.Intent.EXTRA_EMAIL,new
+								// String[] {"pop1030123@163.com"});
+								// ï¿½ï¿½ï¿½ï¿½
+								intent.putExtra(
+										android.content.Intent.EXTRA_SUBJECT,
+										"a.bmp");
+								// ï¿½ï¿½ï¿½ï¿½
+								// intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
+								intent.setType("application/octet-stream");
+								// ï¿½ï¿½ï¿½Þ·ï¿½È·ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								// intent.setType(ï¿½ï¿½*/*ï¿½ï¿½);
+								// ï¿½ï¿½Ã»ï¿½Ð¸ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+								// intent.setType(ï¿½ï¿½plain/textï¿½ï¿½);
+								intent.putExtra(Intent.EXTRA_STREAM,
+										Uri.fromFile(file));
+								// NoteActivity.mNext_tab =
+								// NoteActivity.NOTE_SETTING;
+								startActivity(Intent.createChooser(intent,
+										"Share via:"));
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.setTitle("Success");
+//		alert.show();
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		System.runFinalizersOnExit(true);
+		System.exit(0);
+	}
 }

@@ -1,18 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="15dip" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/progress_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Choose Picture >"
+            android:textColor="#888"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Enter Password >"
+            android:textColor="#888"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Done"
+            android:textColor="#fff"
+            android:textSize="15dip" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="30dp"
-        android:text="Extract Successfully!"
+        android:layout_alignParentTop="true"        
+        android:layout_marginTop="42dp"
+        android:text="Step 3: Done!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:text="The message is successfully extracted from the the picture you choose. You can save it in your device's storage after editing."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 <!-- 
     <TextView
         android:id="@+id/textView2"
@@ -24,7 +68,7 @@
         android:background="@drawable/textview_border"  
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
--->
+
 	<Button
 	    android:id="@+id/button2"
 	    android:layout_width="100dp"
@@ -43,21 +87,21 @@
 	    android:layout_alignRight="@+id/textView3"
 	    android:layout_marginBottom="26dp"
 	    android:text="Exit" />
-
+-->
 	<TextView
 	    android:id="@+id/textView3"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/textView1"
-	    android:layout_below="@+id/textView1"
-	    android:layout_marginTop="20dp"
-	    android:text="Here is content:"
+	    android:layout_alignLeft="@+id/textView2"
+	    android:layout_below="@+id/textView2"
+	    android:layout_marginTop="10dp"
+	    android:text="Here is message:"
 	    android:textAppearance="?android:attr/textAppearanceMedium" />
  
 	<EditText
 	    android:id="@+id/editText1"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="fill_parent"
+        android:layout_height="230dp"
 	    android:layout_alignLeft="@+id/textView3"
 	    android:layout_below="@+id/textView3"
 	    android:ems="10"
@@ -66,5 +110,31 @@
 
 	
 	</EditText>
+	<LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/left_arrow"
+            android:enabled="true"
+            android:text="Exit" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/right_arrow"
+            android:text="Save" />
+    </LinearLayout>
 
 </RelativeLayout>

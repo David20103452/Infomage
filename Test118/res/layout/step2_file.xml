@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="15dip" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/progress_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Choose Picture >"
+            android:textColor="#888"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Write Message >"
+            android:textColor="#fff"
+            android:textSize="15dip" />
+
+        <TextView
+            android:id="@+id/progress_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="2dip"
+            android:text="Done"
+            android:textColor="#888"
+            android:textSize="15dip" />
+    </LinearLayout>
     
     <TextView
         android:id="@+id/textView1"
@@ -9,9 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="42dp"
-        android:text="Step 2:"
+        
+        android:layout_marginTop="35dp"
+        android:text="Step 2: Write Message"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -20,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
-            android:text="Input via file"
+            android:text="Now you need to upload a file, whose content will be read as the message. For your message&apos;s security, you are also required to enter the embedding password."
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
@@ -29,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView2"
             android:layout_below="@+id/textView2"
-            android:layout_marginTop="15dp"
-            android:text="Open a text file to encode:"
+            android:layout_marginTop="10dp"
+            android:text="Open a text file to embed:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
@@ -52,20 +90,19 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/editText1"
             android:layout_below="@+id/editText1"
-            android:layout_marginTop="14dp"
-            android:text="Enter encoding password:"
+            android:layout_marginTop="10dp"
+            android:text="Enter embedding password:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView01"
-            android:layout_alignRight="@+id/TextView01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"          
+            
             android:layout_below="@+id/TextView01"
             android:ems="10"
             android:inputType="numberPassword" />
-
+<!--  
 	<Button
 	    android:id="@+id/button1"
 	    android:layout_width="100dp"
@@ -85,6 +122,33 @@
 	    android:layout_marginLeft="33dp"
 	    android:layout_toRightOf="@+id/button1"
 	    android:text="Next" />
+	    -->
+	<LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/left_arrow"
+            android:enabled="true"
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/right_arrow"
+            android:text="Next" />
+    </LinearLayout>
 
 	<Button
 	    android:id="@+id/button3"
@@ -93,5 +157,6 @@
 	    android:layout_alignBottom="@+id/editText1"
 	    android:layout_toRightOf="@+id/editText1"
 	    android:text="choose" />
+	
 
 </RelativeLayout>
