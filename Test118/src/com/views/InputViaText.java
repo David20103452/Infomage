@@ -42,7 +42,7 @@ public class InputViaText extends Activity {
 		this.setContentView(R.layout.step2_text);
 		
 		Toast.makeText(getApplicationContext(),
-				ImageViewer.picturePath,
+				"Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
 
 		inputText = (EditText) findViewById(R.id.editText1);
@@ -95,7 +95,7 @@ public class InputViaText extends Activity {
 				// String inputPath = ImageViewer.picturePath;
 				// String outputPath = "/storage/sdcard0/encoded/"+"a.bmp";
 				// encoder.setname(inputPath, outputPath);
-				// Log.i(TAG, inputPath+""+outputPath);
+				 Log.i(TAG, "test");
 				// try {
 				// encoder.write(text);
 				// //JOptionPane.showMessageDialog(getContentPane(),
@@ -150,7 +150,7 @@ public class InputViaText extends Activity {
 							String password = InputViaText.encodePassword;
 							//password = "abc123";
 							//outputPath = "/sdcard/test.jpg";							
-							
+							Log.i("encode", "test");
 							int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
 							int[] coeffAfterEmbed = F5Embed(coeff, password,imagePath);
 							createImage(coeffAfterEmbed, imagePath, outputPath,Test118Act.coeffNumber);

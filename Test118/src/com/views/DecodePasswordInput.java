@@ -37,7 +37,7 @@ public class DecodePasswordInput extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.decode_password);
 
-		Toast.makeText(getApplicationContext(), ImageViewer.picturePath,
+		Toast.makeText(getApplicationContext(), "Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
 
 		passwordEditText = (EditText) findViewById(R.id.password);

@@ -909,7 +909,7 @@ class Huffman {
 // public class JpegEncoder extends Frame {
 public class JpegEncoder {
 	Thread runner;
-	private static final String TAG = "text";
+	private static final String TAG = "encoder";
 
 	BufferedOutputStream outStream;
 
@@ -1271,7 +1271,7 @@ public class JpegEncoder {
 		// File file = new File(MainActivity.OUTPUT_PATH+"test.txt");
 		// if (!file.exists()) {
 		// try {
-		// // 在指定的文件夹中创建文件
+		// // 锟斤拷指锟斤拷锟斤拷锟侥硷拷锟斤拷锟叫达拷锟斤拷锟侥硷拷
 		// file.createNewFile();
 		// } catch (Exception e) {
 		// }
@@ -1317,7 +1317,7 @@ public class JpegEncoder {
 		// File(MainActivity.OUTPUT_PATH+"encoding decode before change.txt");
 		// if (!file.exists()) {
 		// try {
-		// // 在指定的文件夹中创建文件
+		// // 锟斤拷指锟斤拷锟斤拷锟侥硷拷锟斤拷锟叫达拷锟斤拷锟侥硷拷
 		// file.createNewFile();
 		// } catch (Exception e) {
 		// }
@@ -1347,18 +1347,18 @@ public class JpegEncoder {
 		// Log.i(TAG, "coeff[320]:"+coeff[320]);
 		// }catch(Exception e){}
 
-//		String fileName = MainActivity.OUTPUT_PATH + "temp.txt";// 文件路径
+//		String fileName = MainActivity.OUTPUT_PATH + "temp.txt";// 锟侥硷拷路锟斤拷
 //		String res = "";
 //		try {
 //			FileInputStream fin = new FileInputStream(fileName);
 //			// FileInputStream fin = openFileInput(fileName);
-//			// 用这个就不行了，必须用FileInputStream
+//			// 锟斤拷锟斤拷锟斤拷筒锟斤拷锟斤拷耍锟斤拷锟斤拷锟斤拷锟紽ileInputStream
 //			int length = fin.available();
 //			byte[] buffer = new byte[length];
 //			fin.read(buffer);
-//			res = EncodingUtils.getString(buffer, "GBK");// //依Y.txt的编码类型选择合适的编码，如果不调整会乱码
+//			res = EncodingUtils.getString(buffer, "GBK");// //锟斤拷Y.txt锟侥憋拷锟斤拷锟斤拷锟斤拷选锟斤拷锟斤拷实谋锟斤拷耄拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
 //			String[] result = res.split("\\s");
-//			fin.close();// 关闭资源
+//			fin.close();// 锟截憋拷锟斤拷源
 //			for (int n = 0; n < result.length; n++) {
 //				coeff[n] = Integer.parseInt(result[n]);
 //				if (n % 64 == 0) {
@@ -1371,7 +1371,7 @@ public class JpegEncoder {
 			// File(MainActivity.OUTPUT_PATH+"encoding decode after change.txt");
 			// if (!file.exists()) {
 			// try {
-			// // 在指定的文件夹中创建文件
+			// // 锟斤拷指锟斤拷锟斤拷锟侥硷拷锟斤拷锟叫达拷锟斤拷锟侥硷拷
 			// file.createNewFile();
 			// } catch (Exception e) {
 			// }
@@ -1655,7 +1655,7 @@ public class JpegEncoder {
 //					+ "temp after embed.txt");
 //			if (!file.exists()) {
 //				try {
-//					// 在指定的文件夹中创建文件
+//					// 锟斤拷指锟斤拷锟斤拷锟侥硷拷锟斤拷锟叫达拷锟斤拷锟侥硷拷
 //					file.createNewFile();
 //				} catch (Exception e) {
 //				}
@@ -2041,7 +2041,7 @@ class JpegInfo {
 		// File file = new File(MainActivity.OUTPUT_PATH+"test.txt");
 		// if (!file.exists()) {
 		// try {
-		// // 在指定的文件夹中创建文件
+		// // 锟斤拷指锟斤拷锟斤拷锟侥硷拷锟斤拷锟叫达拷锟斤拷锟侥硷拷
 		// file.createNewFile();
 		// } catch (Exception e) {
 		// }

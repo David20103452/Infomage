@@ -40,13 +40,13 @@ static	void	_JpegError(j_common_ptr cinfo)
 
 	(*cinfo->err->format_message)(cinfo,pszMessage);
 
-	__android_log_print(ANDROID_LOG_INFO,"Test118","error!  %s",pszMessage);
+//	__android_log_print(ANDROID_LOG_INFO,"Test118","error!  %s",pszMessage);
 }
 
 static int DrawBitmap(AndroidBitmapInfo* pBitmapInfo, void* pPixels,const char* pszJpegFile)
 {
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 //	int array[1536];
 
@@ -63,8 +63,8 @@ static int DrawBitmap(AndroidBitmapInfo* pBitmapInfo, void* pPixels,const char* 
 	if(fp == NULL)
 		return	0;
 
-	cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-	jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+	cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+	jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 	jpeg_create_decompress(&cinfo);
 
 	jpeg_stdio_src(&cinfo, fp);
@@ -105,7 +105,7 @@ static int DrawBitmap(AndroidBitmapInfo* pBitmapInfo, void* pPixels,const char* 
 
 	jpeg_destroy_decompress(&cinfo);
 	fclose(fp);
-	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//	__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
 	return	1;
 }
 
@@ -133,11 +133,11 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_RenderBitmap(JNIEnv * en
 //	DrawBitmap(&info,pixels,"/sdcard/encoded.jpg");
 
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+//	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 	for(int a = 0; a <num; a++){
@@ -158,8 +158,8 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_RenderBitmap(JNIEnv * en
 		if(fp == NULL)
 			return	arr;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -196,9 +196,9 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_RenderBitmap(JNIEnv * en
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
 		    }
@@ -226,10 +226,10 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_RenderBitmap(JNIEnv * en
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 
 
 	AndroidBitmap_unlockPixels(env, bitmap);
@@ -259,11 +259,11 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaText_RenderBitmap(JNIEnv * en
 //	DrawBitmap(&info,pixels,"/sdcard/encoded.jpg");
 
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+//	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 //	for(int a = 0; a <num; a++){
@@ -284,8 +284,8 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaText_RenderBitmap(JNIEnv * en
 		if(fp == NULL)
 			return	arr;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -322,10 +322,10 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaText_RenderBitmap(JNIEnv * en
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "test=%d",test);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "test=%d",test);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
 		    }
@@ -353,10 +353,10 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaText_RenderBitmap(JNIEnv * en
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 
 
 	AndroidBitmap_unlockPixels(env, bitmap);
@@ -369,14 +369,14 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_views_InputViaText_createImage(JNIEnv * env, jobject  obj, jintArray arr, jstring imagePath, jstring outputPath, jint num)
 {
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 	for(int a = 0; a <num; a++){
-		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
+//		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
 	}
 
 
@@ -393,8 +393,8 @@ JNIEXPORT void JNICALL Java_com_views_InputViaText_createImage(JNIEnv * env, job
 		if(fp == NULL)
 			return;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -431,8 +431,8 @@ JNIEXPORT void JNICALL Java_com_views_InputViaText_createImage(JNIEnv * env, job
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
 //		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
@@ -470,10 +470,10 @@ JNIEXPORT void JNICALL Java_com_views_InputViaText_createImage(JNIEnv * env, job
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 		//__android_log_print(ANDROID_LOG_INFO, "path", env->GetStringUTFChars(imagePath, false));
 
 
@@ -502,15 +502,15 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaFile_RenderBitmap(JNIEnv * en
 //	DrawBitmap(&info,pixels,"/sdcard/encoded.jpg");
 
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+//	__android_log_print(ANDROID_LOG_INFO, "num", "number=%d",num);
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 	for(int a = 0; a <num; a++){
-		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
+//		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
 	}
 
 
@@ -527,8 +527,8 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaFile_RenderBitmap(JNIEnv * en
 		if(fp == NULL)
 			return	arr;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -565,9 +565,9 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaFile_RenderBitmap(JNIEnv * en
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
 		    }
@@ -595,10 +595,10 @@ JNIEXPORT jintArray JNICALL Java_com_views_InputViaFile_RenderBitmap(JNIEnv * en
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 
 
 	AndroidBitmap_unlockPixels(env, bitmap);
@@ -611,14 +611,14 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_views_InputViaFile_createImage(JNIEnv * env, jobject  obj, jintArray arr, jstring imagePath, jstring outputPath, jint num)
 {
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 	for(int a = 0; a <num; a++){
-		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
+//		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
 	}
 
 
@@ -635,8 +635,8 @@ JNIEXPORT void JNICALL Java_com_views_InputViaFile_createImage(JNIEnv * env, job
 		if(fp == NULL)
 			return;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -673,8 +673,8 @@ JNIEXPORT void JNICALL Java_com_views_InputViaFile_createImage(JNIEnv * env, job
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
 //		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
@@ -712,10 +712,10 @@ JNIEXPORT void JNICALL Java_com_views_InputViaFile_createImage(JNIEnv * env, job
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 		//__android_log_print(ANDROID_LOG_INFO, "path", env->GetStringUTFChars(imagePath, false));
 
 
@@ -727,14 +727,14 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_Test118_NativeView_createImage(JNIEnv * env, jobject  obj, jintArray arr, jstring imagePath, jstring outputPath, jint num)
 {
 	int			yy;
-	int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+	int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 	int test=0;
 	int array[num];
-	jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+	jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 	jintArray newArray = env->NewIntArray(len);
 	jint* intarr = env->GetIntArrayElements(arr,0);
 	for(int a = 0; a <num; a++){
-		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
+//		__android_log_print(ANDROID_LOG_INFO, "test", "n=%d",intarr[a]);
 	}
 
 
@@ -751,8 +751,8 @@ JNIEXPORT void JNICALL Java_com_Test118_NativeView_createImage(JNIEnv * env, job
 		if(fp == NULL)
 			return;
 
-		cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-		jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+		cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+		jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 		jpeg_create_decompress(&cinfo);
 
 		jpeg_stdio_src(&cinfo, fp);
@@ -789,8 +789,8 @@ JNIEXPORT void JNICALL Java_com_Test118_NativeView_createImage(JNIEnv * env, job
 		            	array[test] = blockptr_one[bi];
 		                test++;
 		                count++;
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
 //		                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 		            }
 		        }
@@ -828,10 +828,10 @@ JNIEXPORT void JNICALL Java_com_Test118_NativeView_createImage(JNIEnv * env, job
 //		(void) jpeg_finish_decompress(&cinfo);
 		jpeg_destroy_decompress(&cinfo);
 		fclose(fp);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//		__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 		//__android_log_print(ANDROID_LOG_INFO, "path", env->GetStringUTFChars(imagePath, false));
 
 
@@ -843,10 +843,10 @@ extern "C"
 JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_decodeEmbededImage(JNIEnv * env, jobject  obj, jintArray arr, jstring imagePath, jint num)
 {
 	int			yy;
-		int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+		int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 		int test=0;
 		int array[num];
-		jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+		jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 		jintArray newArray = env->NewIntArray(len);
 		jint* intarr = env->GetIntArrayElements(arr,0);
 
@@ -869,8 +869,8 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_decodeEmbededImage(JNIEn
 			if(fp == NULL)
 				return	arr;
 
-			cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-			jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+			cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+			jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 			jpeg_create_decompress(&cinfo);
 
 			jpeg_stdio_src(&cinfo, fp);
@@ -907,9 +907,9 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_decodeEmbededImage(JNIEn
 			            	array[test] = blockptr_one[bi];
 			                test++;
 			                count++;
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 			            }
 			        }
 			    }
@@ -937,10 +937,10 @@ JNIEXPORT jintArray JNICALL Java_com_Test118_NativeView_decodeEmbededImage(JNIEn
 	//		(void) jpeg_finish_decompress(&cinfo);
 			jpeg_destroy_decompress(&cinfo);
 			fclose(fp);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 
 
 //		AndroidBitmap_unlockPixels(env, bitmap);
@@ -952,10 +952,10 @@ extern "C"
 JNIEXPORT jintArray JNICALL Java_com_views_DecodePasswordInput_decodeEmbededImage(JNIEnv * env, jobject  obj, jintArray arr, jstring imagePath, jint num)
 {
 	int			yy;
-		int			nJpegLineBytes;			//JPEG1ƒ‰ƒCƒ“‚ÌƒoƒCƒg”
+		int			nJpegLineBytes;			//JPEG1ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 		int test=0;
 		int array[num];
-		jsize len = env->GetArrayLength(arr);//·µ»¹Õâ¸öÊı×éµÄ³¤¶È..
+		jsize len = env->GetArrayLength(arr);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½..
 		jintArray newArray = env->NewIntArray(len);
 		jint* intarr = env->GetIntArrayElements(arr,0);
 
@@ -978,8 +978,8 @@ JNIEXPORT jintArray JNICALL Java_com_views_DecodePasswordInput_decodeEmbededImag
 			if(fp == NULL)
 				return	arr;
 
-			cinfo.err = jpeg_std_error(&jError);			//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
-			jError.error_exit = _JpegError;					//ƒGƒ‰[ƒnƒ“ƒhƒ‰İ’è
+			cinfo.err = jpeg_std_error(&jError);			//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
+			jError.error_exit = _JpegError;					//ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 			jpeg_create_decompress(&cinfo);
 
 			jpeg_stdio_src(&cinfo, fp);
@@ -1016,9 +1016,9 @@ JNIEXPORT jintArray JNICALL Java_com_views_DecodePasswordInput_decodeEmbededImag
 			            	array[test] = blockptr_one[bi];
 			                test++;
 			                count++;
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
-			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",blockptr_one[bi]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[test-1]);
+//			                __android_log_print(ANDROID_LOG_INFO, "JNIMsg", "array=%d",array[test-1]);
 			            }
 			        }
 			    }
@@ -1046,10 +1046,10 @@ JNIEXPORT jintArray JNICALL Java_com_views_DecodePasswordInput_decodeEmbededImag
 	//		(void) jpeg_finish_decompress(&cinfo);
 			jpeg_destroy_decompress(&cinfo);
 			fclose(fp);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
-			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "n=%d",test);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "arr=%d",arr[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "intarr=%d",intarr[0]);
+//			__android_log_print(ANDROID_LOG_INFO, "JNIMsg", "newArray=%d",newArray[0]);
 
 
 //		AndroidBitmap_unlockPixels(env, bitmap);

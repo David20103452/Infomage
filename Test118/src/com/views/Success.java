@@ -39,7 +39,7 @@ public class Success extends Activity {
 
 		// For F5
 		// path.setText(outputPath);
-		Toast.makeText(getApplicationContext(), outputPath,
+		Toast.makeText(getApplicationContext(), "Saved in: "+outputPath,
 				Toast.LENGTH_LONG).show();
 		
 		shareButton.setOnClickListener(new View.OnClickListener() {

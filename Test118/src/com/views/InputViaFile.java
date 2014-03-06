@@ -56,7 +56,7 @@ public class InputViaFile extends Activity {
 		this.setContentView(R.layout.step2_file);
 		
 		Toast.makeText(getApplicationContext(),
-				ImageViewer.picturePath,
+				"Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
 
 		inputFile = (EditText) findViewById(R.id.editText1);
