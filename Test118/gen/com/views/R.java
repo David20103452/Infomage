@@ -18,42 +18,48 @@ public final class R {
         public static final int camera=0x7f020001;
         public static final int drawer_shadow=0x7f020002;
         public static final int ic_drawer=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int ic_menu_test=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int left_arrow=0x7f020007;
-        public static final int right_arrow=0x7f020008;
+        public static final int ic_info=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int ic_menu_test=0x7f020006;
+        public static final int ic_more_info=0x7f020007;
+        public static final int icon=0x7f020008;
+        public static final int left_arrow=0x7f020009;
+        public static final int right_arrow=0x7f02000a;
     }
     public static final class id {
         public static final int TextView01=0x7f07000b;
-        public static final int action_websearch=0x7f07001c;
-        public static final int bluetooth=0x7f070019;
+        public static final int action_websearch=0x7f07001f;
+        public static final int bluetooth=0x7f07001c;
         public static final int button1=0x7f07000a;
         public static final int button2=0x7f07000e;
         public static final int button3=0x7f070011;
         public static final int buttons=0x7f07000d;
         public static final int content_frame=0x7f070005;
+        public static final int dialog=0x7f070013;
         public static final int drawer_layout=0x7f070004;
         public static final int editText1=0x7f07000f;
-        public static final int editText2=0x7f07001a;
-        public static final int email=0x7f070018;
+        public static final int editText2=0x7f07001d;
+        public static final int email=0x7f07001b;
         public static final int image=0x7f070010;
         public static final int imageView1=0x7f070012;
-        public static final int imgView=0x7f07001b;
+        public static final int imgView=0x7f07001e;
         public static final int left_drawer=0x7f070006;
-        public static final int line=0x7f070016;
+        public static final int line=0x7f070019;
+        public static final int more_info=0x7f070020;
         public static final int password=0x7f07000c;
         public static final int progress_1=0x7f070007;
         public static final int progress_2=0x7f070008;
         public static final int progress_3=0x7f070009;
-        public static final int radio0=0x7f070014;
-        public static final int radio1=0x7f070015;
-        public static final int radioGroup1=0x7f070013;
-        public static final int save=0x7f070017;
+        public static final int radio0=0x7f070017;
+        public static final int radio1=0x7f070018;
+        public static final int radioGroup1=0x7f070016;
+        public static final int save=0x7f07001a;
         public static final int textView1=0x7f070001;
         public static final int textView2=0x7f070000;
         public static final int textView3=0x7f070002;
         public static final int textView4=0x7f070003;
+        public static final int textView5=0x7f070014;
+        public static final int textView6=0x7f070015;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -65,17 +71,19 @@ public final class R {
         public static final int encode=0x7f030006;
         public static final int fragment_planet=0x7f030007;
         public static final int help=0x7f030008;
-        public static final int license=0x7f030009;
-        public static final int manual=0x7f03000a;
-        public static final int option=0x7f03000b;
-        public static final int send=0x7f03000c;
-        public static final int step2_file=0x7f03000d;
-        public static final int step2_text=0x7f03000e;
-        public static final int success=0x7f03000f;
-        public static final int uploaded_image=0x7f030010;
+        public static final int image_info=0x7f030009;
+        public static final int license=0x7f03000a;
+        public static final int manual=0x7f03000b;
+        public static final int option=0x7f03000c;
+        public static final int send=0x7f03000d;
+        public static final int step2_file=0x7f03000e;
+        public static final int step2_text=0x7f03000f;
+        public static final int success=0x7f030010;
+        public static final int uploaded_image=0x7f030011;
     }
     public static final class menu {
         public static final int main=0x7f060000;
+        public static final int more_info=0x7f060001;
     }
     public static final class string {
         public static final int about_text=0x7f040005;

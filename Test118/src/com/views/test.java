@@ -39,6 +39,13 @@ public class test extends Activity{
 		return number;
 	}
 	
+	public int[] getParameters(){
+		JpegEncoder encoder = new JpegEncoder(image,100,out,"");
+		// the parameters in order: [0]width, [1]length, [2]DCT, [3]capacity
+		int[] para = encoder.getParameters();
+		return para;
+	}
+	
 	public void setPath(String inputPath, String outputPath) {
 		try{
 		infilename = new File(MainActivity.CONFIG_PATH + "test.txt");

@@ -1060,6 +1060,193 @@ public class JpegEncoder {
 		}
 		return coeffCount;
 	}
+	
+	public int[] getParameters(){
+		int[] para = new int[4];
+		
+		final int offset;
+		int i, j, r, c, a, b;
+		final int temp = 0;
+		int comp, xpos, ypos, xblockoffset, yblockoffset;
+		float inputArray[][];
+		final float dctArray1[][] = new float[8][8];
+		double dctArray2[][] = new double[8][8];
+		int dctArray3[] = new int[8 * 8];
+
+		/*
+		 * This method controls the compression of the image. Starting at the
+		 * upper left of the image, it compresses 8x8 blocks of data until the
+		 * entire image has been compressed.
+		 */
+
+		final int lastDCvalue[] = new int[this.JpegObj.NumberOfComponents];
+		final int zeroArray[] = new int[64]; // initialized to hold all zeros
+		int Width = 0, Height = 0;
+		final int nothing = 0, not;
+		int MinBlockWidth, MinBlockHeight;
+		// This initial setting of MinBlockWidth and MinBlockHeight is done to
+		// ensure they start with values larger than will actually be the case.
+		MinBlockWidth = this.imageWidth % 8 != 0 ? (int) (Math
+				.floor(this.imageWidth / 8.0) + 1) * 8 : this.imageWidth;
+		MinBlockHeight = this.imageHeight % 8 != 0 ? (int) (Math
+				.floor(this.imageHeight / 8.0) + 1) * 8 : this.imageHeight;
+		for (comp = 0; comp < this.JpegObj.NumberOfComponents; comp++) {
+			MinBlockWidth = Math.min(MinBlockWidth,
+					this.JpegObj.BlockWidth[comp]);
+			MinBlockHeight = Math.min(MinBlockHeight,
+					this.JpegObj.BlockHeight[comp]);
+		}
+		xpos = 0;
+		// westfeld
+		// Before we enter these loops, we initialise the
+		// coeff for steganography here:
+		int shuffledIndex = 0;
+		int coeffCount = 0;
+		for (r = 0; r < MinBlockHeight; r++) {
+			for (c = 0; c < MinBlockWidth; c++) {
+				for (comp = 0; comp < this.JpegObj.NumberOfComponents; comp++) {
+					for (i = 0; i < this.JpegObj.VsampFactor[comp]; i++) {
+						for (j = 0; j < this.JpegObj.HsampFactor[comp]; j++) {
+							coeffCount += 64;
+						}
+					}
+				}
+			}
+		}
+		int coeff[] = new int[coeffCount];
+
+		System.out.println(coeffCount + "DCT/quantisation starts");
+		// TODO
+		Log.i(TAG, coeffCount + "DCT/quantisation starts");
+		Log.i(TAG, this.imageWidth + " x " + this.imageHeight);
+		para[0]=this.imageWidth;
+		para[1]=this.imageHeight;
+		Log.i(TAG, "MinBlockHeight: " + MinBlockHeight + " " + MinBlockWidth);
+		System.out.println(this.imageWidth + " x " + this.imageHeight);
+		for (r = 0; r < MinBlockHeight; r++) {
+			for (c = 0; c < MinBlockWidth; c++) {
+				xpos = c * 8;
+				ypos = r * 8;
+				for (comp = 0; comp < this.JpegObj.NumberOfComponents; comp++) {
+					Width = this.JpegObj.BlockWidth[comp];
+					Height = this.JpegObj.BlockHeight[comp];
+					inputArray = (float[][]) this.JpegObj.Components[comp];
+
+					for (i = 0; i < this.JpegObj.VsampFactor[comp]; i++) {
+						for (j = 0; j < this.JpegObj.HsampFactor[comp]; j++) {
+							xblockoffset = j * 8;
+							yblockoffset = i * 8;
+							for (a = 0; a < 8; a++) {
+								for (b = 0; b < 8; b++) {
+
+									// I believe this is where the dirty line at
+									// the bottom of the image is
+									// coming from. I need to do a check here to
+									// make sure I'm not reading past
+									// image data.
+									// This seems to not be a big issue right
+									// now. (04/04/98)
+
+									// westfeld - dirty line fixed, Jun 6 2000
+									int ia = ypos
+											* this.JpegObj.VsampFactor[comp]
+											+ yblockoffset + a;
+									int ib = xpos
+											* this.JpegObj.HsampFactor[comp]
+											+ xblockoffset + b;
+									if (this.imageHeight / 2
+											* this.JpegObj.VsampFactor[comp] <= ia) {
+										ia = this.imageHeight
+												/ 2
+												* this.JpegObj.VsampFactor[comp]
+												- 1;
+									}
+									if (this.imageWidth / 2
+											* this.JpegObj.HsampFactor[comp] <= ib) {
+										ib = this.imageWidth
+												/ 2
+												* this.JpegObj.HsampFactor[comp]
+												- 1;
+									}
+									// dctArray1[a][b] = inputArray[ypos +
+									// yblockoffset + a][xpos + xblockoffset +
+									// b];
+									dctArray1[a][b] = inputArray[ia][ib];
+								}
+							}
+							// The following code commented out because on some
+							// images this technique
+							// results in poor right and bottom borders.
+							// if ((!JpegObj.lastColumnIsDummy[comp] || c <
+							// Width - 1) && (!JpegObj.lastRowIsDummy[comp] || r
+							// < Height - 1)) {
+							dctArray2 = this.dct.forwardDCT(dctArray1);
+							dctArray3 = this.dct.quantizeBlock(dctArray2,
+									this.JpegObj.QtableNumber[comp]);
+							// }
+							// else {
+							// zeroArray[0] = dctArray3[0];
+							// zeroArray[0] = lastDCvalue[comp];
+							// dctArray3 = zeroArray;
+							// }
+							// westfeld
+							// For steganography, all dct
+							// coefficients are collected in
+							// coeff[] first. We do not encode
+							// any Huffman Blocks here (we'll do
+							// this later).
+							System.arraycopy(dctArray3, 0, coeff,
+									shuffledIndex, 64);
+							shuffledIndex += 64;
+
+						}
+					}
+				}
+			}
+		}
+		System.out.println("got " + coeffCount + " DCT AC/DC coefficients");
+		Log.i(TAG, "got " + coeffCount + " DCT AC/DC coefficients");
+		para[2]=coeffCount;
+		int _changed = 0;
+		int _embedded = 0;
+		int _examined = 0;
+		int _expected = 0;
+		int _one = 0;
+		int _large = 0;
+		int _thrown = 0;
+		int _zero = 0;
+		for (i = 0; i < coeffCount; i++) {
+			if (i % 64 == 0) {
+				continue;
+			}
+			if (coeff[i] == 1) {
+				_one++;
+			}
+			if (coeff[i] == -1) {
+				_one++;
+			}
+			if (coeff[i] == 0) {
+				_zero++;
+			}
+		}
+		_large = coeffCount - _zero - _one - coeffCount / 64;
+		_expected = _large + (int) (0.49 * _one);
+		//
+		// System.out.println("zero="+_zero);
+		System.out.println("one=" + _one);
+		System.out.println("large=" + _large);
+		Log.i(TAG, "zero=" + _zero);
+		Log.i(TAG, "one=" + _one);
+		Log.i(TAG, "large=" + _large);
+		//
+		System.out.println("expected capacity: " + _expected + " bits");
+		System.out.println("expected capacity with");
+		Log.i(TAG, "expected capacity: " + _expected + " bits");
+		Log.i(TAG, "expected capacity with");
+		para[3]=_expected;
+		
+		return para;
+	}
 
 	public int[] WriteCompressedData(final BufferedOutputStream outStream, final int[] originalCoeff) {
 		final int offset;
