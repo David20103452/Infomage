@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
 
 import org.apache.http.util.EncodingUtils;
 
 import com.Test118.Test118Act;
+import com.algorithms.AlgorithmFactory;
 
 
 import android.app.Activity;
@@ -46,6 +48,7 @@ public class InputViaFile extends Activity {
 	Encoder encoder = new Encoder();
 	test test1 = new test();
 	test test = new test();
+	AlgorithmFactory r;
 
 	// private static String INPUT_FILE_PATH;
 	// private static String INPUT_PASSWORD;
@@ -54,6 +57,18 @@ public class InputViaFile extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.step2_file);
+		
+		// for creating F5 Factory as a client
+		String factoryName = "F5Factory";
+		try{
+			Class cls = Class.forName("com.algorithms."+factoryName);
+			Constructor cons = cls.getConstructor(null);
+			r = (AlgorithmFactory)cons.newInstance();			
+			
+		}
+		catch(Throwable e){
+			
+		}
 		
 		Toast.makeText(getApplicationContext(),
 				"Opened file:"+ImageViewer.picturePath,
@@ -170,10 +185,14 @@ public class InputViaFile extends Activity {
 									//password = "abc123";
 									//outputPath = "/sdcard/test.jpg";							
 									
+									// For Reflection test
+									String returned = r.generateAlgorithm().extract("", "");
+									Log.i("reflect", returned);
+									
 									int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
 									int[] coeffAfterEmbed = F5Embed(coeff, password,imagePath);
 									createImage(coeffAfterEmbed, imagePath, outputPath,Test118Act.coeffNumber);
-									Log.i("encode", outputPath+"+"+password);
+									Log.i("encode", outputPath+"+ "+password);
 									handler.obtainMessage(0).sendToTarget();
 								}
 								
