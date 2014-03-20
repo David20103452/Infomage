@@ -2,11 +2,15 @@ package com.views;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.reflect.Constructor;
 
 import com.Test118.Test118Act;
+import com.algorithms.AlgorithmFactory;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -34,12 +39,25 @@ public class InputViaText extends Activity {
 	Encoder encoder = new Encoder();
 	test test1 = new test();
 	test test = new test();
+	AlgorithmFactory r;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.step2_text);
+		
+		// for creating Factory as a client
+		String factoryName = "LSBFactory";
+		try{
+			Class cls = Class.forName("com.algorithms."+factoryName);
+			Constructor cons = cls.getConstructor(null);
+			r = (AlgorithmFactory)cons.newInstance();			
+			
+		}
+		catch(Throwable e){
+			
+		}
 		
 		Toast.makeText(getApplicationContext(),
 				"Opened file:"+ImageViewer.picturePath,
@@ -114,7 +132,9 @@ public class InputViaText extends Activity {
 					mpDialog.show();
 					new Thread(new Runnable() {
 						@Override
+						
 						public void run() {
+							
 							// encode		
 // For back up							
 //							String inputPath = ImageViewer.picturePath;
@@ -144,19 +164,26 @@ public class InputViaText extends Activity {
 							
 							// Get output image name 
 							String[] path = image.split("/");
-							String outputImageName = "embedded_"+path[path.length-1];
-							
+							String outputImageName = "embedded_"+path[path.length-1];							
+													
 							outputPath = MainActivity.OUTPUT_PATH+outputImageName;							
-							String password = InputViaText.encodePassword;
-							//password = "abc123";
-							//outputPath = "/sdcard/test.jpg";							
-							Log.i("encode", "test");
-							int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
-							int[] coeffAfterEmbed = F5Embed(coeff, password,imagePath);
-							createImage(coeffAfterEmbed, imagePath, outputPath,Test118Act.coeffNumber);
-							Log.i("encode", outputPath+"+"+password);
-							handler.obtainMessage(0).sendToTarget();
+							String password = InputViaText.encodePassword;	
 							
+							// For Reflection test
+							Looper.prepare();
+							boolean embeddedsuccess = r.generateAlgorithm().embed(ImageViewer.picturePath, outputPath, password, content);
+							 
+							Log.i("encode", "test");
+//							int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
+//							int[] coeffAfterEmbed = F5Embed(coeff, password,imagePath);
+//							createImage(coeffAfterEmbed, imagePath, outputPath,Test118Act.coeffNumber);
+//							Log.i("encode", outputPath+"+"+password);
+							if(embeddedsuccess){
+								handler.obtainMessage(0).sendToTarget();
+							}else{
+								handler.obtainMessage(1).sendToTarget();
+							}
+//							Looper.loop();
 						}
 						public int[] F5Embed(int[] origicalCoeff, String password,String imagePath){
 							
@@ -194,10 +221,34 @@ public class InputViaText extends Activity {
 //							+ Environment.getExternalStorageDirectory()
 //							+ "/encoded/")));
 			mpDialog.dismiss();// �ر�ProgressDialog
-			Intent intent = new Intent();
-			intent.setClass(InputViaText.this, Success.class);
-			intent.putExtra("outputPath", outputPath);
-			startActivity(intent);
+			switch (msg.what) {
+			case 0:
+				Intent intent = new Intent();
+				intent.setClass(InputViaText.this, Success.class);
+				// for LBS
+	//			outputPath = "/storage/sdcard0/encoded1/"+"a.bmp";
+				intent.putExtra("outputPath", outputPath);
+				startActivity(intent);
+				break;
+			case 1:
+				showDecodeFailDialog();
+				break;
+			}
 		}
 	};
+	
+	public void showDecodeFailDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(
+				"Embedding failed!")
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.setTitle("Sorry");
+		alert.show();
+	}
 }

@@ -1,10 +1,12 @@
 package com.views;
 
 import java.io.FileInputStream;
+import java.lang.reflect.Constructor;
 
 import org.apache.http.util.EncodingUtils;
 
 import com.Test118.Test118Act;
+import com.algorithms.AlgorithmFactory;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -31,11 +34,25 @@ public class DecodePasswordInput extends Activity {
 	EditText passwordEditText;
 	ProgressDialog mpDialog;
 	test test1 = new test();
+	AlgorithmFactory r;
+	String message = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.decode_password);
+		
+		// for creating Factory as a client
+		String factoryName = "LSBFactory";
+		try{
+			Class cls = Class.forName("com.algorithms."+factoryName);
+			Constructor cons = cls.getConstructor(null);
+			r = (AlgorithmFactory)cons.newInstance();			
+			
+		}
+		catch(Throwable e){
+			
+		}
 
 		Toast.makeText(getApplicationContext(), "Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
@@ -110,16 +127,25 @@ public class DecodePasswordInput extends Activity {
 							// Test118Act.coeffNumber = 1536;
 							// Log.i(Test118Act.TAG, coeffNumber+"");
 							int[] array = new int[Test118Act.coeffNumber];
+							
 							String imagePath = ImageViewer.picturePath;
 							String password = DecodePasswordInput.decodePassword;
 							Log.i("test", imagePath + "+" + password);
 							// imagePath = "/sdcard/test.jpg";
 							// password = "abc123";
-							int[] coeff = decodeEmbededImage(array, imagePath,
-									Test118Act.coeffNumber);
-							boolean extractedSuccess = Extract.extract(coeff,
-									password);
-							if (extractedSuccess) {
+							
+							// for reflection test
+							Looper.prepare();
+							message = r.generateAlgorithm().extract(imagePath, password);
+//							boolean extractedSuccess = true;
+							
+//							int[] coeff = decodeEmbededImage(array, imagePath,
+//									Test118Act.coeffNumber);
+//							boolean extractedSuccess = Extract.extract(coeff,
+//									password);
+
+							
+							if (message != null) {
 								handler.obtainMessage(0).sendToTarget();
 							} else {
 								handler.obtainMessage(1).sendToTarget();
@@ -130,7 +156,7 @@ public class DecodePasswordInput extends Activity {
 
 				} else {
 					Toast.makeText(getApplicationContext(),
-							"Please enter encoding password",
+							"Please enter the extracting password",
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -171,18 +197,20 @@ public class DecodePasswordInput extends Activity {
 			switch (msg.what) {
 			case 0:
 				// For F5, read from content.txt
-				String fileName = MainActivity.CONFIG_PATH + "content.txt";// �ļ�·��
-				String content = "";
-				try {
-					FileInputStream fin = new FileInputStream(fileName);
-					int length = fin.available();
-					byte[] buffer = new byte[length];
-					fin.read(buffer);
-					content = EncodingUtils.getString(buffer, "GBK");// //��Y.txt�ı�������ѡ����ʵı��룬�����������
-					fin.close();// �ر���Դ
-
-				} catch (Exception e) {
-				}
+//				String fileName = MainActivity.CONFIG_PATH + "content.txt";// �ļ�·��
+//				String content = "";
+//				try {
+//					FileInputStream fin = new FileInputStream(fileName);
+//					int length = fin.available();
+//					byte[] buffer = new byte[length];
+//					fin.read(buffer);
+//					content = EncodingUtils.getString(buffer, "GBK");// //��Y.txt�ı�������ѡ����ʵı��룬�����������
+//					fin.close();// �ر���Դ
+//
+//				} catch (Exception e) {
+//				}
+				
+				String content = message;
 
 				if (!content.equals("")) {
 

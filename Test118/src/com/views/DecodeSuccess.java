@@ -69,7 +69,8 @@ public class DecodeSuccess extends Activity {
 					String[] path = image.split("/");
 					String[] separate = path[path.length-1].split("_");
 					String outputImageName = "extracted_content_from_"+separate[separate.length-1];	
-					outputImageName = outputImageName.replace(".jpg", ".txt");
+					if (outputImageName.contains(".jpg")) outputImageName = outputImageName.replace(".jpg", ".txt");
+					if (outputImageName.contains(".bmp")) outputImageName = outputImageName.replace(".bmp", ".txt");
 					outputPath = MainActivity.OUTPUT_PATH + outputImageName;
 					
 					writeSDFile(outputPath, content);
@@ -90,7 +91,7 @@ public class DecodeSuccess extends Activity {
 		File file = new File(fileName);
 		if (!file.exists()) {
 			try {
-				// ÔÚÖ¸¶¨µÄÎÄ¼þ¼ÐÖÐ´´½¨ÎÄ¼þ
+				// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 				file.createNewFile();
 			} catch (Exception e) {
 			}

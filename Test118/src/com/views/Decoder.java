@@ -32,7 +32,7 @@ public class Decoder {
 		if(text.contains("a$"))
 			return text.substring(0,text.length()-2);
 		else
-			return "";
+			return null;
 	}
 
 }
