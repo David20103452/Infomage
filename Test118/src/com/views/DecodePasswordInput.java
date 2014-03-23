@@ -43,7 +43,7 @@ public class DecodePasswordInput extends Activity {
 		this.setContentView(R.layout.decode_password);
 		
 		// for creating Factory as a client
-		String factoryName = "LSBFactory";
+		String factoryName = MainActivity.ALGORITHM;
 		try{
 			Class cls = Class.forName("com.algorithms."+factoryName);
 			Constructor cons = cls.getConstructor(null);
@@ -121,12 +121,12 @@ public class DecodePasswordInput extends Activity {
 							// // encoder.write(content);
 							// handler.obtainMessage(0).sendToTarget();
 
-							String image = ImageViewer.picturePath;
-							test1.setPath(image, "");
-							Test118Act.coeffNumber = test1.getCoeffNumber();
-							// Test118Act.coeffNumber = 1536;
-							// Log.i(Test118Act.TAG, coeffNumber+"");
-							int[] array = new int[Test118Act.coeffNumber];
+//							String image = ImageViewer.picturePath;
+//							test1.setPath(image, "");
+//							Test118Act.coeffNumber = test1.getCoeffNumber();
+//							// Test118Act.coeffNumber = 1536;
+//							// Log.i(Test118Act.TAG, coeffNumber+"");
+//							int[] array = new int[Test118Act.coeffNumber];
 							
 							String imagePath = ImageViewer.picturePath;
 							String password = DecodePasswordInput.decodePassword;
@@ -146,6 +146,7 @@ public class DecodePasswordInput extends Activity {
 
 							
 							if (message != null) {
+//							if (extractedSuccess) {
 								handler.obtainMessage(0).sendToTarget();
 							} else {
 								handler.obtainMessage(1).sendToTarget();

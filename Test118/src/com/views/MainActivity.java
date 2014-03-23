@@ -47,12 +47,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 //import views.R;
 
@@ -72,6 +74,8 @@ public class MainActivity extends Activity {
 	public static String CONFIG_PATH= Environment.getExternalStorageDirectory() + File.separator + "encoded1/";
 	public static int MODE_FLAG = 0;
 	public static int DECODE_FLAG = 0;
+	public static String ALGORITHM = "F5Factory";
+	public static long ALGORITHM_ID = 0;
 
 	public void initialization(){
 		
@@ -81,7 +85,7 @@ public class MainActivity extends Activity {
 		// Check for the default directory - encoded/, create if not exist
         File file = new File(defaultPath);
         if(!file.exists()){
-        	file.mkdirs();// ´´½¨ÎÄ¼þ¼Ð
+        	file.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
         }
          
         // Check for test.txt in encoded/
@@ -114,7 +118,7 @@ public class MainActivity extends Activity {
 		
         File file7 = new File(defaultPath.replace("encoded1", "output"));
         if(!file7.exists()){
-        	file7.mkdirs();// ´´½¨ÎÄ¼þ¼Ð
+        	file7.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
         }
         
 		// Check for the configuration file, create if it does not exist
@@ -159,7 +163,7 @@ public class MainActivity extends Activity {
 
         File file = new File(OUTPUT_PATH);
         if(!file.exists()){
-        	file.mkdirs();// ´´½¨ÎÄ¼þ¼Ð
+        	file.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
         }
         initialization();
 		mTitle = mDrawerTitle = getTitle();
@@ -310,6 +314,9 @@ public class MainActivity extends Activity {
 		public RadioGroup group;
 		public EditText outputPath;
 		public Button save;
+		public ArrayAdapter adapter;
+		public int spinnerItemId;
+		Spinner spinner;
 		public Activity a = this.getActivity();
 		View rootView;
 		String pictureName;
@@ -342,7 +349,7 @@ public class MainActivity extends Activity {
 //					            output = new File(imagesFolder, fileName);
 //					        }
 //							File file = new File("/sdcard/myImage/");
-//							file.mkdirs();// ´´½¨ÎÄ¼þ¼Ð
+//							file.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 //							String fileName = "/sdcard/myImage/111.jpg";
 //					        File output = new File(fileName);
 //					        try {
@@ -469,9 +476,33 @@ public class MainActivity extends Activity {
 					radioButtonText.setChecked(true);
 				if (INPUT_METHOD == 1)
 					radioButtonFile.setChecked(true);
+				
 				outputPath = (EditText) rootView.findViewById(R.id.editText1);
 				outputPath.setText(OUTPUT_PATH);
-
+				
+				spinner = (Spinner)rootView.findViewById(R.id.spinner);
+				adapter = ArrayAdapter.createFromResource(getActivity(), R.array.algorithms, android.R.layout.simple_spinner_item);
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);				
+				spinner.setAdapter(adapter);
+				spinner.setSelection((int)MainActivity.ALGORITHM_ID);
+				spinner.setVisibility(View.VISIBLE);
+				spinner.setOnItemSelectedListener(
+						new OnItemSelectedListener(){  
+					        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {  
+/*					        	MainActivity.ALGORITHM = adapter.getItem(arg2).toString();
+					        	MainActivity.ALGORITHM_ID = adapter.getItemId(arg2);*/
+					        	spinnerItemId = arg2;
+					            Log.i("spinner",adapter.getItem(arg2).toString()+" "+arg2);
+					        }  
+					  
+					        public void onNothingSelected(AdapterView<?> arg0) {  
+					              
+					        }  
+					          
+					    }  
+						
+				);
+				
 				rootView.findViewById(R.id.save).setOnClickListener(
 						new View.OnClickListener() {
 
@@ -491,9 +522,14 @@ public class MainActivity extends Activity {
 									INPUT_METHOD = 0;
 								else
 									INPUT_METHOD = 1;
+								
+					        	MainActivity.ALGORITHM = adapter.getItem(spinnerItemId).toString();
+					        	MainActivity.ALGORITHM_ID = adapter.getItemId(spinnerItemId);
+					        	
 								Toast.makeText(getActivity(),
 										"Saved!" + INPUT_METHOD,
-										Toast.LENGTH_SHORT).show();
+										Toast.LENGTH_SHORT).show();								
+								
 							}
 						
 						public void saveToConfiguration(String newPath){
@@ -622,22 +658,22 @@ public class MainActivity extends Activity {
 			if (resultCode == Activity.RESULT_OK && MODE_FLAG == 0) {
 
 //				String sdStatus = Environment.getExternalStorageState();
-//				if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // ¼ì²âsdÊÇ·ñ¿ÉÓÃ
+//				if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // ï¿½ï¿½ï¿½sdï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 //					Log.v("TestFile",
 //							"SD card is not avaiable/writeable right now.");
 //					return;
 //				}
 //
 //				Bundle bundle = data.getExtras();
-//				Bitmap bitmap = (Bitmap) bundle.get("data");// »ñÈ¡Ïà»ú·µ»ØµÄÊý¾Ý£¬²¢×ª»»ÎªBitmapÍ¼Æ¬¸ñÊ½
+//				Bitmap bitmap = (Bitmap) bundle.get("data");// ï¿½ï¿½È¡ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½×ªï¿½ï¿½ÎªBitmapÍ¼Æ¬ï¿½ï¿½Ê½
 //				FileOutputStream b = null;
 //				File file = new File("/sdcard/myImage/");
-//				file.mkdirs();// ´´½¨ÎÄ¼þ¼Ð
+//				file.mkdirs();// ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 //				String fileName = "/sdcard/myImage/111.jpg";
 //
 //				try {
 //					b = new FileOutputStream(fileName);
-//				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// °ÑÊý¾ÝÐ´ÈëÎÄ¼þ
+//				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 //				} catch (FileNotFoundException e) {
 //					e.printStackTrace();
 //				} finally {
@@ -651,7 +687,7 @@ public class MainActivity extends Activity {
 //
 //				// ((ImageView)
 //				// findViewById(R.id.imageView)).setImageBitmap(bitmap);//
-//				// ½«Í¼Æ¬ÏÔÊ¾ÔÚImageViewÀï
+//				// ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ê¾ï¿½ï¿½ImageViewï¿½ï¿½
 //				// ((ImageView) findViewById(R.id.imageView))
 //				// .setImageBitmap(BitmapFactory.decodeFile(fileName));
 				//String fileName ="/sdcard/encoded/original.jpg";

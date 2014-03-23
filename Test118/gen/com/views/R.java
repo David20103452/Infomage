@@ -9,6 +9,7 @@ package com.views;
 
 public final class R {
     public static final class array {
+        public static final int algorithms=0x7f050001;
         public static final int planets_array=0x7f050000;
     }
     public static final class attr {
@@ -28,8 +29,8 @@ public final class R {
     }
     public static final class id {
         public static final int TextView01=0x7f07000b;
-        public static final int action_websearch=0x7f07001f;
-        public static final int bluetooth=0x7f07001c;
+        public static final int action_websearch=0x7f070021;
+        public static final int bluetooth=0x7f07001e;
         public static final int button1=0x7f07000a;
         public static final int button2=0x7f07000e;
         public static final int button3=0x7f070011;
@@ -38,14 +39,15 @@ public final class R {
         public static final int dialog=0x7f070013;
         public static final int drawer_layout=0x7f070004;
         public static final int editText1=0x7f07000f;
-        public static final int editText2=0x7f07001d;
-        public static final int email=0x7f07001b;
+        public static final int editText2=0x7f07001f;
+        public static final int email=0x7f07001d;
         public static final int image=0x7f070010;
         public static final int imageView1=0x7f070012;
-        public static final int imgView=0x7f07001e;
+        public static final int imgView=0x7f070020;
         public static final int left_drawer=0x7f070006;
         public static final int line=0x7f070019;
-        public static final int more_info=0x7f070020;
+        public static final int line1=0x7f07001a;
+        public static final int more_info=0x7f070022;
         public static final int password=0x7f07000c;
         public static final int progress_1=0x7f070007;
         public static final int progress_2=0x7f070008;
@@ -53,7 +55,8 @@ public final class R {
         public static final int radio0=0x7f070017;
         public static final int radio1=0x7f070018;
         public static final int radioGroup1=0x7f070016;
-        public static final int save=0x7f07001a;
+        public static final int save=0x7f07001c;
+        public static final int spinner=0x7f07001b;
         public static final int textView1=0x7f070001;
         public static final int textView2=0x7f070000;
         public static final int textView3=0x7f070002;

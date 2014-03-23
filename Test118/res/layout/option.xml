@@ -4,21 +4,13 @@
     android:layout_height="match_parent"
     android:padding="15dip" >
 
-    <TextView
-        android:id="@+id/progress_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="2dip"
-        android:text="Options >"
-        android:textColor="#fff"
-        android:textSize="15dip" />
+    
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="0dp"
         android:text="Input Method"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -89,6 +81,41 @@
 
         <requestFocus />
     </EditText>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="20dp"
+        android:text="Algorithm"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+        <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView4"
+        android:text="You can specify the embedding or extracting algorithm here."
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+       android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView5"
+        android:layout_height="wrap_content" >
+    </Spinner>
 
     <Button
         android:id="@+id/save"
