@@ -1,7 +1,7 @@
 package com.algorithms;
 
-import com.views.Decoder;
-import com.views.Encoder;
+import com.LSB.Decoder;
+import com.LSB.Encoder;
 
 public class LSBAlgorithm implements Algorithm{
 

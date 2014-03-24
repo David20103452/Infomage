@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 
 import org.apache.http.util.EncodingUtils;
 
+import com.F5.test;
 import com.Test118.Test118Act;
 import com.algorithms.AlgorithmFactory;
 
@@ -56,6 +57,9 @@ public class DecodePasswordInput extends Activity {
 
 		Toast.makeText(getApplicationContext(), "Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
+
+		TextView textView = (TextView)findViewById(R.id.textView2);
+		textView.setText("To extract messages, you are supposed to enter the password, which is the same as the embedding password. The algorithm currently used to extract is "+MainActivity.ALGORITHM+".");
 
 		passwordEditText = (EditText) findViewById(R.id.password);
 		Button backButton = (Button) findViewById(R.id.button1);

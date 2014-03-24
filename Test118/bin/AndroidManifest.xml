@@ -45,7 +45,7 @@
         </activity>
         <activity android:name="com.views.InputViaText" android:screenOrientation="nosensor">
         </activity>
-        <activity android:name="com.views.test" android:screenOrientation="nosensor">
+        <activity android:name="com.F5.test" android:screenOrientation="nosensor">
         </activity>
         <activity android:name="com.views.Success" android:screenOrientation="nosensor">
         </activity>

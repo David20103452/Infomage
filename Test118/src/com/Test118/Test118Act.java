@@ -7,12 +7,12 @@ import java.io.InputStream;
 
 import org.apache.http.util.EncodingUtils;
 
+import com.F5.Extract;
+import com.F5.test;
 import com.views.DecodePasswordInput;
-import com.views.Extract;
 import com.views.ImageViewer;
 import com.views.InputViaText;
 import com.views.MainActivity;
-import com.views.test;
 
 import crypt.F5Random;
 import crypt.Permutation;
@@ -70,19 +70,19 @@ class NativeView extends View {
 //		Test118Act.coeffNumber = 1536;
 		//Log.i(Test118Act.TAG, coeffNumber+"");
 		int[] array = new int[Test118Act.coeffNumber];
-		// String fileName = "/sdcard/encoded/temp after embed.txt";// ÎÄ¼þÂ·¾¶
+		// String fileName = "/sdcard/encoded/temp after embed.txt";// ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		// String res = "";
 		// try {
 		// FileInputStream fin = new FileInputStream(fileName);
 		// // FileInputStream fin = openFileInput(fileName);
-		// // ÓÃÕâ¸ö¾Í²»ÐÐÁË£¬±ØÐëÓÃFileInputStream
+		// // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FileInputStream
 		// int length = fin.available();
 		// byte[] buffer = new byte[length];
 		// fin.read(buffer);
 		// res = EncodingUtils.getString(buffer, "GBK");//
-		// //ÒÀY.txtµÄ±àÂëÀàÐÍÑ¡ÔñºÏÊÊµÄ±àÂë£¬Èç¹û²»µ÷Õû»áÂÒÂë
+		// //ï¿½ï¿½Y.txtï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ÊµÄ±ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		// String[] result = res.split("\\s");
-		// fin.close();// ¹Ø±Õ×ÊÔ´
+		// fin.close();// ï¿½Ø±ï¿½ï¿½ï¿½Ô´
 		// for (int n = 0; n < result.length; n++) {
 		// array[n] = Integer.parseInt(result[n]);
 		// }
@@ -121,7 +121,7 @@ class NativeView extends View {
 //			File file = new File("/sdcard/coeffAfterEmbed.txt");
 //			if (!file.exists()) {
 //				try {
-//					// ÔÚÖ¸¶¨µÄÎÄ¼þ¼ÐÖÐ´´½¨ÎÄ¼þ
+//					// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 //					file.createNewFile();
 //				} catch (Exception e) {
 //				}

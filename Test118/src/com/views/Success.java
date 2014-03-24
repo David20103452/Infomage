@@ -59,7 +59,7 @@ public class Success extends Activity {
 				// ����
 				intent.putExtra(
 						android.content.Intent.EXTRA_SUBJECT,
-						"a.bmp");
+						"Infomage");
 				// ����
 				// intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
 				intent.setType("application/octet-stream");

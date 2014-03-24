@@ -8,11 +8,11 @@ import org.apache.http.util.EncodingUtils;
 
 import android.graphics.Bitmap;
 
+import com.F5.Extract;
+import com.F5.test;
 import com.Test118.Test118Act;
-import com.views.Extract;
 import com.views.ImageViewer;
 import com.views.MainActivity;
-import com.views.test;
 
 public class F5Algorithm implements Algorithm{
 	test test1 = new test();
