@@ -81,8 +81,11 @@ public class F5Algorithm implements Algorithm{
 		int[] array = new int[Test118Act.coeffNumber];
 		
 		String imagePath = inputPath;
-		int[] coeff = decodeEmbededImage(array, imagePath,Test118Act.coeffNumber);
+//		String imagePath =MainActivity.CONFIG_PATH + "temp.jpg";
+		try{
+		int[] coeff = decodeEmbededImage(array, imagePath,Test118Act.coeffNumber);		
 		boolean extractedSuccess = Extract.extract(coeff,password);
+		
 		
 		if(extractedSuccess){
 			String fileName = MainActivity.CONFIG_PATH + "content.txt";// �ļ�·��
@@ -102,6 +105,7 @@ public class F5Algorithm implements Algorithm{
 		}else{
 			return null;
 		}	
+		}catch(Exception e){ return null;}
 		
 	}
 

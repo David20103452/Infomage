@@ -74,7 +74,7 @@ public class Extract {
 //			File file = new File(MainActivity.OUTPUT_PATH+"Extract2.txt");
 //			if (!file.exists()) {
 //				try {
-//					// ÔÚÖ¸¶¨µÄÎÄ¼þ¼ÐÖÐ´´½¨ÎÄ¼þ
+//					// ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 //					file.createNewFile();
 //				} catch (Exception e) {
 //				}
@@ -224,23 +224,24 @@ public class Extract {
 			fos.close();
 			if(success){
 			// Only for F5
-    		String fileName = MainActivity.CONFIG_PATH + "content.txt";// ÎÄ¼þÂ·¾¶
+    		String fileName = MainActivity.CONFIG_PATH + "content.txt";// ï¿½Ä¼ï¿½Â·ï¿½ï¿½
     		String content = "";    		
     		FileInputStream fin = new FileInputStream(fileName);
     		int length = fin.available();
     		byte[] buffer = new byte[length];
     		fin.read(buffer);
-    		content = EncodingUtils.getString(buffer, "GBK");// //ÒÀY.txtµÄ±àÂëÀàÐÍÑ¡ÔñºÏÊÊµÄ±àÂë£¬Èç¹û²»µ÷Õû»áÂÒÂë    	
+    		content = EncodingUtils.getString(buffer, "GBK");// //ï¿½ï¿½Y.txtï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ÊµÄ±ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    	
     		Log.i(TAG, content);
     		DecodeSuccess.content = content;
     		Log.i(TAG, DecodeSuccess.content);
-    		fin.close();// ¹Ø±Õ×ÊÔ´
+    		fin.close();// ï¿½Ø±ï¿½ï¿½ï¿½Ô´
 			}
 			
 			
     			
 		} catch (Exception e) {
 			e.printStackTrace();
+//			return false;
 		}
 		return success;
 	}

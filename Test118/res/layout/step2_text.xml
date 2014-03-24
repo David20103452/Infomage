@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:text="Now you need to input the message you want to hide in the picture. For your message&apos;s security, you are also required to enter the embedding password."
+        android:text="Now you are supposed to input the message and password for embedding. The algorithm currently used to embed is F5."
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -103,6 +103,7 @@
         android:ems="10"
         android:inputType="numberPassword" />
     
+        
 <!--   
 	<Button
 	    android:id="@+id/button1"

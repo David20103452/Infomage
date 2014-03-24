@@ -1364,7 +1364,9 @@ JNIEXPORT jintArray JNICALL Java_com_algorithms_F5Algorithm_decodeEmbededImage(J
 			            {
 	//		            	if(by == 0 && bx == 0 && bi ==2)
 	//		                blockptr_one[bi] = -17;
-
+			                if(test >= num){
+			                	break;
+			                }
 	//		            	blockptr_one[bi] = intarr[count];
 			            	intarr[test] = blockptr_one[bi];
 			            	array[test] = blockptr_one[bi];

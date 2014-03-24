@@ -27,11 +27,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class InputViaFile extends Activity {
@@ -59,7 +61,7 @@ public class InputViaFile extends Activity {
 		this.setContentView(R.layout.step2_file);
 		
 		// for creating F5 Factory as a client
-		String factoryName = "F5Factory";
+		String factoryName = MainActivity.ALGORITHM;
 		try{
 			Class cls = Class.forName("com.algorithms."+factoryName);
 			Constructor cons = cls.getConstructor(null);
@@ -73,7 +75,8 @@ public class InputViaFile extends Activity {
 		Toast.makeText(getApplicationContext(),
 				"Opened file:"+ImageViewer.picturePath,
 				Toast.LENGTH_SHORT).show();
-
+		TextView textView = (TextView)findViewById(R.id.textView2);
+		textView.setText("Now you are supposed to input the message and password for embedding. The algorithm currently used to embed is "+MainActivity.ALGORITHM+".");
 		inputFile = (EditText) findViewById(R.id.editText1);
 		inputPassword = (EditText) findViewById(R.id.editText2);
 		Button backButton = (Button) findViewById(R.id.button1);
@@ -169,12 +172,12 @@ public class InputViaFile extends Activity {
 //									// encoder.write(content);
 //									handler.obtainMessage(0).sendToTarget();
 									String image = ImageViewer.picturePath;		
-									test1.setPath(image, "");
+/*									test1.setPath(image, "");
 									Test118Act.coeffNumber = test1.getCoeffNumber();
 //									Test118Act.coeffNumber = 1536;
 									//Log.i(Test118Act.TAG, coeffNumber+"");
 									int[] array = new int[Test118Act.coeffNumber];
-									String imagePath = MainActivity.CONFIG_PATH + "temp.jpg";
+									String imagePath = MainActivity.CONFIG_PATH + "temp.jpg";*/
 									
 									// Get output image name 
 									String[] path = image.split("/");
@@ -186,22 +189,28 @@ public class InputViaFile extends Activity {
 									//outputPath = "/sdcard/test.jpg";							
 									
 									// For Reflection test
-									String returned = r.generateAlgorithm().extract("", "");
-									Log.i("reflect", returned);
+/*									String returned = r.generateAlgorithm().extract("", "");
+									Log.i("reflect", returned);*/
+									Looper.prepare();
+									boolean embeddedsuccess = r.generateAlgorithm().embed(ImageViewer.picturePath, outputPath, password, content);
 									
-									int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
+/*									int[] coeff = RenderBitmap(Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565), array,imagePath,Test118Act.coeffNumber);
 									int[] coeffAfterEmbed = F5Embed(coeff, password,imagePath);
 									createImage(coeffAfterEmbed, imagePath, outputPath,Test118Act.coeffNumber);
-									Log.i("encode", outputPath+"+ "+password);
-									handler.obtainMessage(0).sendToTarget();
+									Log.i("encode", outputPath+"+ "+password);*/
+									if(embeddedsuccess){
+										handler.obtainMessage(0).sendToTarget();
+									}else{
+										handler.obtainMessage(1).sendToTarget();
+									}
 								}
 								
-								public int[] F5Embed(int[] origicalCoeff, String password,String imagePath){
+/*								public int[] F5Embed(int[] origicalCoeff, String password,String imagePath){
 									
 									test.setPath(imagePath, "");
 									int[] coeff = test.encode(origicalCoeff, password);
 									return coeff;
-								}
+								}*/
 
 							}).start();
 
@@ -262,11 +271,33 @@ public class InputViaFile extends Activity {
 		public void handleMessage(Message msg) {// handler���յ���Ϣ��ͻ�ִ�д˷���
 //			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"+ Environment.getExternalStorageDirectory()+"/encoded/")));
 			mpDialog.dismiss();// �ر�ProgressDialog
-			Intent intent = new Intent();
-			intent.setClass(InputViaFile.this, Success.class);
-			intent.putExtra("outputPath", outputPath);
-			startActivity(intent);
+			switch (msg.what){
+			case 0:				
+				Intent intent = new Intent();
+				intent.setClass(InputViaFile.this, Success.class);
+				intent.putExtra("outputPath", outputPath);
+				startActivity(intent);
+				break;
+			case 1:
+				showEmbedFailDialog();
+			}
+
 		}
 	};
+	
+	public void showEmbedFailDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(
+				"Embedding failed!")
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.setTitle("Sorry");
+		alert.show();
+	}
 
 }

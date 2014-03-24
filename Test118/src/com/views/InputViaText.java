@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class InputViaText extends Activity {
@@ -66,6 +67,8 @@ public class InputViaText extends Activity {
 
 		inputText = (EditText) findViewById(R.id.editText1);
 		inputPassword = (EditText) findViewById(R.id.editText2);
+		TextView textView = (TextView)findViewById(R.id.textView2);
+		textView.setText("Now you are supposed to input the message and password for embedding. The algorithm currently used to embed is "+MainActivity.ALGORITHM+".");
 
 		Button backButton = (Button) findViewById(R.id.button1);
 		backButton.setOnClickListener(new View.OnClickListener() {

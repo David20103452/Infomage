@@ -52,9 +52,9 @@ public class test extends Activity{
 		outfilename = new File(MainActivity.CONFIG_PATH + "a.jpg");
 		
 		try{
-		Bitmap image = BitmapFactory.decodeFile(inputPath);
+		Bitmap image1 = BitmapFactory.decodeFile(inputPath);
 		FileOutputStream temp = new FileOutputStream(MainActivity.CONFIG_PATH + "temp.jpg");
-		image.compress(Bitmap.CompressFormat.JPEG, 100, temp);
+		image1.compress(Bitmap.CompressFormat.JPEG, 100, temp);
 		}catch(Exception e){}
 		image = BitmapFactory.decodeFile(MainActivity.CONFIG_PATH + "temp.jpg");
 		
