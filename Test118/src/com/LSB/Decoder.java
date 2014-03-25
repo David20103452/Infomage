@@ -4,10 +4,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * This is the LSB extracting class for conducting LSB algorithm.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
+
 public class Decoder {
 
 	File infilename;
 
+	/**
+	 * Extract the message from stego image
+	 * 
+	 * @param a
+	 *            path for stego image
+	 * @return extracted message
+	 * @throws IOException
+	 */
 	public String getText(String a) throws IOException {
 		String text = "";
 		int temp = 0;
@@ -29,8 +44,8 @@ public class Decoder {
 			tempchar = (char) key;
 			text = text + tempchar;
 		} while (key != '$');
-		if(text.contains("a$"))
-			return text.substring(0,text.length()-2);
+		if (text.contains("a$"))
+			return text.substring(0, text.length() - 2);
 		else
 			return null;
 	}

@@ -14,6 +14,12 @@ import com.views.MainActivity;
 
 import ortega.HuffmanDecode;
 
+/**
+ * This is the extracting class for conducting f5 algorithms.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
 public class Extract {
 	private static File f; // carrier file
 	private static byte[] carrier; // carrier data
@@ -21,8 +27,8 @@ public class Extract {
 	private static FileOutputStream fos; // embedded file (output file)
 	private static String embFileName; // output file name
 	private static String password;
-    private static final String TAG = "text";
-    public static String contentCache;
+	private static final String TAG = "text";
+	public static String contentCache;
 
 	private static byte[] deZigZag = { 0, 1, 5, 6, 14, 15, 27, 28, 2, 4, 7, 13,
 			16, 26, 29, 42, 3, 8, 12, 17, 25, 30, 41, 43, 9, 11, 18, 24, 31,
@@ -30,82 +36,76 @@ public class Extract {
 			55, 60, 21, 34, 37, 47, 50, 56, 59, 61, 35, 36, 48, 49, 57, 58, 62,
 			63 };
 
-	static void usage() {
-		System.out.println("java Extract [Options] \"image.jpg\"");
-		System.out.println("Options:");
-		System.out.println("\t-p password (default: abc123)");
-		System.out.println("\t-e extractedFileName (default: output.txt)");
-		System.out
-				.println("\nAuthor: Andreas Westfeld, westfeld@inf.tu-dresden.de");
-	}
-
+	/**
+	 * Extract message from stego image using f5 extracting algorithm
+	 * 
+	 * @param coeffArray
+	 *            DCT coefficients of stego image
+	 * @param thePassword
+	 *            password needed for extracting
+	 * @return true if extracted successfully else false
+	 */
 	public static boolean extract(int[] coeffArray, String thePassword) {
-//		try{
-//		Bitmap image = BitmapFactory.decodeFile(MainActivity.OUTPUT_PATH + "32.jpg");
-//		FileOutputStream temp = new FileOutputStream("/storage/sdcard0/encoded/temp.jpg");
-//		image.compress(Bitmap.CompressFormat.JPEG, 100, temp);
-//		}catch(Exception e){}
-		
-		
-		//f=new File("/sdcard/test.jpg");
+		// try{
+		// Bitmap image = BitmapFactory.decodeFile(MainActivity.OUTPUT_PATH +
+		// "32.jpg");
+		// FileOutputStream temp = new
+		// FileOutputStream("/storage/sdcard0/encoded/temp.jpg");
+		// image.compress(Bitmap.CompressFormat.JPEG, 100, temp);
+		// }catch(Exception e){}
+
+		// f=new File("/sdcard/test.jpg");
 		boolean success = true;
-		embFileName = MainActivity.CONFIG_PATH+"content.txt";
+		embFileName = MainActivity.CONFIG_PATH + "content.txt";
 		password = thePassword;
 		try {
 
-			//carrier = new byte[(int) f.length()];
-			//FileInputStream fis = new FileInputStream(f);
+			// Extracting preparation
 			fos = new FileOutputStream(new File(embFileName));
-			//fis.read(carrier);
-			//HuffmanDecode hd = new HuffmanDecode(carrier);
-			//System.out.println("Huffman decoding starts");
-			//Log.i(TAG,"Huffman decoding starts");
-//			coeff = hd.decode();
-			
 			coeff = coeffArray;
 			int original[] = new int[coeff.length];
-            System.arraycopy(coeff, 0, original, 0, coeff.length);
-            //int after[] = new int[coeff.length];
-            int number = coeff.length / 64;
-            for (int m = 0; m < number; m++) {
-                for (int x = 0; x < 64; x++) {
-                    coeff[m * 64 + deZigZag[x]] = original[m * 64 + x];
-                }
-            }
-			
-//	      try{
-//			File file = new File(MainActivity.OUTPUT_PATH+"Extract2.txt");
-//			if (!file.exists()) {
-//				try {
-//					// ��ָ�����ļ����д����ļ�
-//					file.createNewFile();
-//				} catch (Exception e) {
-//				}
-//			}
-//			FileOutputStream fos = new FileOutputStream(file,true);	
-//			
-////			int original[] = new int[coeff.length];
-////			System.arraycopy(coeff, 0, original, 0, coeff.length);
-////			//int after[] = new int[coeff.length];
-////			int number = coeff.length/64;
-////			for(int i = 0; i < number; i++ ){
-////				for(int j = 0; j<64;j++){
-////					coeff[i*64+j] = original[i*64+deZigZag[j]];
-////				}
-////			}
-//			
-//	      for(int count = 0; count<(coeff.length); count++){
-//	      	Integer integer = new Integer(coeff[count]);
-//	      	fos.write((integer.toString()+" ").getBytes());
-//	      	//Log.i(TAG,values[i]+"" );
-//	      }
-//	      fos.close();
-//	      }catch(Exception e){
-//	      	e.printStackTrace();
-//	      }
-			
+			System.arraycopy(coeff, 0, original, 0, coeff.length);
+			// int after[] = new int[coeff.length];
+			int number = coeff.length / 64;
+			for (int m = 0; m < number; m++) {
+				for (int x = 0; x < 64; x++) {
+					coeff[m * 64 + deZigZag[x]] = original[m * 64 + x];
+				}
+			}
+
+			// try{
+			// File file = new File(MainActivity.OUTPUT_PATH+"Extract2.txt");
+			// if (!file.exists()) {
+			// try {
+			// file.createNewFile();
+			// } catch (Exception e) {
+			// }
+			// }
+			// FileOutputStream fos = new FileOutputStream(file,true);
+			//
+			// // int original[] = new int[coeff.length];
+			// // System.arraycopy(coeff, 0, original, 0, coeff.length);
+			// // //int after[] = new int[coeff.length];
+			// // int number = coeff.length/64;
+			// // for(int i = 0; i < number; i++ ){
+			// // for(int j = 0; j<64;j++){
+			// // coeff[i*64+j] = original[i*64+deZigZag[j]];
+			// // }
+			// // }
+			//
+			// for(int count = 0; count<(coeff.length); count++){
+			// Integer integer = new Integer(coeff[count]);
+			// fos.write((integer.toString()+" ").getBytes());
+			// //Log.i(TAG,values[i]+"" );
+			// }
+			// fos.close();
+			// }catch(Exception e){
+			// e.printStackTrace();
+			// }
+
+			// Permutation starts
 			System.out.println("Permutation starts");
-			Log.i(TAG,"Permutation starts");
+			Log.i(TAG, "Permutation starts");
 			F5Random random = new F5Random(password.getBytes());
 			Permutation permutation = new Permutation(coeff.length, random);
 			System.out.println(coeff.length + " indices shuffled");
@@ -117,7 +117,7 @@ public class Extract {
 			int extractedBit;
 			int i;
 			System.out.println("Extraction starts");
-			Log.i(TAG,"Extraction starts");
+			Log.i(TAG, "Extraction starts");
 			// extract length information
 			for (i = 0; availableExtractedBits < 32; i++) {
 				shuffledIndex = permutation.getShuffled(i);
@@ -149,7 +149,7 @@ public class Extract {
 				int startOfN = i;
 				int hash;
 				System.out.println("(1, " + n + ", " + k + ") code used");
-				Log.i(TAG,"(1, " + n + ", " + k + ") code used");
+				Log.i(TAG, "(1, " + n + ", " + k + ") code used");
 				extractingLoop: do {
 					// 1. read n places, and calculate k bits
 					hash = 0;
@@ -223,28 +223,26 @@ public class Extract {
 						+ " of " + extractedFileLength + " bytes extracted");
 				success = false;
 			}
-			//fis.close();
+			// fis.close();
 			fos.close();
-			if(success){
-			// Only for F5
-    		String fileName = MainActivity.CONFIG_PATH + "content.txt";// �ļ�·��
-    		String content = "";    		
-    		FileInputStream fin = new FileInputStream(fileName);
-    		int length = fin.available();
-    		byte[] buffer = new byte[length];
-    		fin.read(buffer);
-    		content = EncodingUtils.getString(buffer, "GBK");// //��Y.txt�ı�������ѡ����ʵı��룬�����������    	
-    		Log.i(TAG, content);
-    		DecodeSuccess.content = content;
-    		Log.i(TAG, DecodeSuccess.content);
-    		fin.close();// �ر���Դ
+			if (success) {
+				// Only for F5
+				String fileName = MainActivity.CONFIG_PATH + "content.txt";
+				String content = "";
+				FileInputStream fin = new FileInputStream(fileName);
+				int length = fin.available();
+				byte[] buffer = new byte[length];
+				fin.read(buffer);
+				content = EncodingUtils.getString(buffer, "GBK");
+				Log.i(TAG, content);
+				DecodeSuccess.content = content;
+				Log.i(TAG, DecodeSuccess.content);
+				fin.close();
 			}
-			
-			
-    			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-//			return false;
+			// return false;
 		}
 		return success;
 	}
