@@ -17,6 +17,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * This is the activity class responsible for creating and handling actions in
+ * decode_result.xml. This page is responsible for saving the extracted 
+ * message in a local file.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
 public class DecodeSuccess extends Activity {
 
 	public static String content;
@@ -36,22 +44,16 @@ public class DecodeSuccess extends Activity {
 		Button exitButton = (Button) findViewById(R.id.button1);
 		Button saveButton = (Button) findViewById(R.id.button2);
 
-		//Log.i(TAG, content);
+		// Log.i(TAG, content);
 		contentEditText.setText(content);
 		// contentEditText.setEnabled(false);
 		exitButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				// Success.this.finish();
-//				Intent intent = new Intent(Intent.ACTION_MAIN);
-//				intent.addCategory(Intent.CATEGORY_HOME);
-//				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				startActivity(intent);
-//				android.os.Process.killProcess(0);
 				Intent intent = new Intent();
 				intent.setClass(DecodeSuccess.this, MainActivity.class);
-				//intent.addCategory(Intent.CATEGORY_HOME);
+				// intent.addCategory(Intent.CATEGORY_HOME);
 				intent.putExtra("EXIT", true);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
@@ -61,18 +63,22 @@ public class DecodeSuccess extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				
+
 				try {
-					
-					// Get output image name 
-					String image = ImageViewer.picturePath;	
+					// Get output image name
+					String image = ImageViewer.picturePath;
 					String[] path = image.split("/");
-					String[] separate = path[path.length-1].split("_");
-					String outputImageName = "extracted_content_from_"+separate[separate.length-1];	
-					if (outputImageName.contains(".jpg")) outputImageName = outputImageName.replace(".jpg", ".txt");
-					if (outputImageName.contains(".bmp")) outputImageName = outputImageName.replace(".bmp", ".txt");
+					String[] separate = path[path.length - 1].split("_");
+					String outputImageName = "extracted_content_from_"
+							+ separate[separate.length - 1];
+					if (outputImageName.contains(".jpg"))
+						outputImageName = outputImageName.replace(".jpg",
+								".txt");
+					if (outputImageName.contains(".bmp"))
+						outputImageName = outputImageName.replace(".bmp",
+								".txt");
 					outputPath = MainActivity.OUTPUT_PATH + outputImageName;
-					
+
 					writeSDFile(outputPath, content);
 					showSaveSuccessDialog();
 
@@ -85,13 +91,21 @@ public class DecodeSuccess extends Activity {
 		});
 	}
 
+	/**
+	 * Save the message extracted to SD card
+	 * 
+	 * @param fileName
+	 *            file path
+	 * @param write_str
+	 *            message
+	 * @throws IOException
+	 */
 	public void writeSDFile(String fileName, String write_str)
 			throws IOException {
 
 		File file = new File(fileName);
 		if (!file.exists()) {
 			try {
-				// ��ָ�����ļ����д����ļ�
 				file.createNewFile();
 			} catch (Exception e) {
 			}
@@ -104,14 +118,12 @@ public class DecodeSuccess extends Activity {
 
 	public void showSaveSuccessDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(""+outputPath)
-				.setCancelable(false)
-				.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
+		builder.setMessage("" + outputPath).setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
 		AlertDialog alert = builder.create();
 		alert.setTitle("Saved in:");
 		alert.show();

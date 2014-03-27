@@ -46,15 +46,7 @@ public class Extract {
 	 * @return true if extracted successfully else false
 	 */
 	public static boolean extract(int[] coeffArray, String thePassword) {
-		// try{
-		// Bitmap image = BitmapFactory.decodeFile(MainActivity.OUTPUT_PATH +
-		// "32.jpg");
-		// FileOutputStream temp = new
-		// FileOutputStream("/storage/sdcard0/encoded/temp.jpg");
-		// image.compress(Bitmap.CompressFormat.JPEG, 100, temp);
-		// }catch(Exception e){}
 
-		// f=new File("/sdcard/test.jpg");
 		boolean success = true;
 		embFileName = MainActivity.CONFIG_PATH + "content.txt";
 		password = thePassword;

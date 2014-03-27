@@ -22,77 +22,78 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * This is the activity class responsible for creating and handling actions in
+ * uploaded_image.xml. In this page, you can not only view the image you just
+ * choose, but check the embedding parameters of the chosen image.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
 public class ImageViewer extends Activity {
 
 	private static final String TAG = "viewer";
 	public static String picturePath = "";
-	
-	public boolean onCreateOptionsMenu(Menu menu){
+
+	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.more_info, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
+		// Handle presses on the action bar items
 		showImageInfo();
 		return true;
 	}
-	
-	public void showImageInfo(){
-/*		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setItems(new String[]{"Image Path:"+picturePath,"Image Name",""}, null).setIcon(android.R.drawable.ic_dialog_info)
-				.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-		AlertDialog alert = builder.create();
-		alert.setTitle("Image Information");
-		alert.show();*/
+
+	public void showImageInfo() {
 
 		// Get image parameters
-		String [] parameters = getImageParameters();
+		String[] parameters = getImageParameters();
 		LayoutInflater inflater = getLayoutInflater();
-		View layout = inflater.inflate(R.layout.image_info, (ViewGroup)findViewById(R.id.dialog));		
-		TextView titleTextView = (TextView)layout.findViewById(R.id.textView1);
-		TextView widthTextView = (TextView)layout.findViewById(R.id.textView2);
-		TextView lengthTextView = (TextView)layout.findViewById(R.id.textView3);
-		TextView DCTTextView = (TextView)layout.findViewById(R.id.textView4);
-		TextView capacityTextView = (TextView)layout.findViewById(R.id.textView5);
-		TextView pathTextView = (TextView)layout.findViewById(R.id.textView6);
-		titleTextView.setText("Title: "+parameters[0]);
-		widthTextView.setText("Width: "+parameters[1]);
-		lengthTextView.setText("Length: "+parameters[2]);
-		DCTTextView.setText("DCT coefficient: "+parameters[3]);
-		capacityTextView.setText("Expected massage capacity: "+parameters[4]);
-		pathTextView.setText("Path: "+parameters[5]);
-		new AlertDialog.Builder(this).setTitle("Image Information").setIcon(android.R.drawable.ic_dialog_info).setView(layout).setPositiveButton("OK", null).show();
+		View layout = inflater.inflate(R.layout.image_info,
+				(ViewGroup) findViewById(R.id.dialog));
+		TextView titleTextView = (TextView) layout.findViewById(R.id.textView1);
+		TextView widthTextView = (TextView) layout.findViewById(R.id.textView2);
+		TextView lengthTextView = (TextView) layout
+				.findViewById(R.id.textView3);
+		TextView DCTTextView = (TextView) layout.findViewById(R.id.textView4);
+		TextView capacityTextView = (TextView) layout
+				.findViewById(R.id.textView5);
+		TextView pathTextView = (TextView) layout.findViewById(R.id.textView6);
+		titleTextView.setText("Title: " + parameters[0]);
+		widthTextView.setText("Width: " + parameters[1]);
+		lengthTextView.setText("Length: " + parameters[2]);
+		DCTTextView.setText("DCT coefficient: " + parameters[3]);
+		capacityTextView.setText("Expected massage capacity: " + parameters[4]);
+		pathTextView.setText("Path: " + parameters[5]);
+		new AlertDialog.Builder(this).setTitle("Image Information")
+				.setIcon(android.R.drawable.ic_dialog_info).setView(layout)
+				.setPositiveButton("OK", null).show();
 	}
-	
-	public String[] getImageParameters(){
+
+	public String[] getImageParameters() {
 		String[] parameters = new String[6];
-		// title
+		// Get title
 		String[] path = picturePath.split("/");
-		parameters[0] = path[path.length-1];
-		// width & length
-		// DCT
-		// capacity
+		parameters[0] = path[path.length - 1];
+
+		// Get width & length, DCT, capacity
 		test test1 = new test();
-		test1.setPath(picturePath, "");			
+		test1.setPath(picturePath, "");
 		int[] para = test1.getParameters();
-		// the para in order: [0]width, [1]length, [2]DCT, [3]capacity
-		parameters[1] = para[0]+""; // Width
-		parameters[2] = para[1]+""; // Length
-		parameters[3] = para[2]+""; // DCT
-		parameters[4] = para[3]+" bits"; // capacity
-		
-		// path
+
+		// The parameters in order: [0]width, [1]length, [2]DCT, [3]capacity
+		parameters[1] = para[0] + ""; // Width
+		parameters[2] = para[1] + ""; // Length
+		parameters[3] = para[2] + ""; // DCT
+		parameters[4] = para[3] + " bits"; // capacity
+
+		// Get path
 		parameters[5] = picturePath;
 		return parameters;
-		
 	}
 
 	@Override
@@ -126,12 +127,12 @@ public class ImageViewer extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if (MainActivity.DECODE_FLAG == 1) {
-					//Decode Mode
+					// Decode Mode
 					Intent intent = new Intent();
 					intent.setClass(ImageViewer.this, DecodePasswordInput.class);
 					startActivity(intent);
 				} else {
-					//Encode Mode
+					// Encode Mode
 					Log.i(TAG, MainActivity.INPUT_METHOD + "");
 					if (MainActivity.INPUT_METHOD == 0) {
 						Intent intent = new Intent();

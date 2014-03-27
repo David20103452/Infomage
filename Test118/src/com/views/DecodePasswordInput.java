@@ -27,6 +27,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This is the activity class responsible for creating and handling actions in
+ * decode_password.xml. This class is the client class which dynamically
+ * generate the extracting algorithm using Factory Method Pattern. It also
+ * utilized reflection techniques in Java to creating the Factory class 
+ * dynamically, which ensures that no modification will be made in this class
+ * when a new algorithm is added to the system.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
+
 public class DecodePasswordInput extends Activity {
 
 	public static String decodePassword = "";
@@ -35,32 +47,28 @@ public class DecodePasswordInput extends Activity {
 	EditText passwordEditText;
 	ProgressDialog mpDialog;
 	test test1 = new test();
-	AlgorithmFactory r;
+	AlgorithmFactory r; // Class generated with reflection
 	String message = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.decode_password);
-		
-		// for creating Factory as a client
+
+		// Creating Factory as a client with reflection
 		String factoryName = MainActivity.ALGORITHM;
-		try{
-			Class cls = Class.forName("com.algorithms."+factoryName);
+		try {
+			Class cls = Class.forName("com.algorithms." + factoryName);
 			Constructor cons = cls.getConstructor(null);
-			r = (AlgorithmFactory)cons.newInstance();			
-			
-		}
-		catch(Throwable e){
-			
+			r = (AlgorithmFactory) cons.newInstance();
+		} catch (Throwable e) {
 		}
 
-		Toast.makeText(getApplicationContext(), "Opened file:"+ImageViewer.picturePath,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(),"Opened file:" + ImageViewer.picturePath, Toast.LENGTH_SHORT).show();
 
-		TextView textView = (TextView)findViewById(R.id.textView2);
-		textView.setText("To extract messages, you are supposed to enter the password, which is the same as the embedding password. The algorithm currently used to extract is "+MainActivity.ALGORITHM+".");
-
+		TextView textView = (TextView) findViewById(R.id.textView2);
+		textView.setText("To extract messages, you are supposed to enter the password, which is the same as the embedding password. The algorithm currently used to extract is "
+				+ MainActivity.ALGORITHM + ".");
 		passwordEditText = (EditText) findViewById(R.id.password);
 		Button backButton = (Button) findViewById(R.id.button1);
 		Button nextButton = (Button) findViewById(R.id.button2);
@@ -84,73 +92,27 @@ public class DecodePasswordInput extends Activity {
 			public void onClick(View arg0) {
 				decodePassword = passwordEditText.getText().toString();
 				if (!decodePassword.equals("")) {
-					// try {
-					// // Decoder decoder = new Decoder();
-					// // String text = decoder.getText(picturePath);
-					//
-					// Intent i = new Intent();
-					// i.setClass(DecodePasswordInput.this, Test118Act.class);
-					// startActivity(i);
-					//
-					// // String text = "haha";
-					// // Log.i(TAG, text);
-					// // if (!text.equals("")) {
-					// // Intent intent = new Intent();
-					// // intent.setClass(DecodePasswordInput.this,
-					// // DecodeSuccess.class);
-					// // intent.putExtra("content", text);
-					// // startActivity(intent);
-					// // } else {
-					// // showDecodeFailDialog();
-					// // }
-					// } catch (Exception e) {
-					// e.printStackTrace();
-					// }
+
 					mpDialog = new ProgressDialog(DecodePasswordInput.this);
-					mpDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// ���÷��ΪԲ�ν��
+					mpDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 					mpDialog.setMessage("Please wait. Extracting...");
 					mpDialog.setCanceledOnTouchOutside(false);
 					mpDialog.show();
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
-							// // encode
-							// Intent intent = new Intent();
-							// intent.setClass(DecodePasswordInput.this,
-							// Test118Act.class);
-							// // intent.putExtra("path", picturePath);
-							// // intent.putExtra("password", decodePassword);
-							// startActivity(intent);
-							//
-							// // encoder.write(content);
-							// handler.obtainMessage(0).sendToTarget();
 
-//							String image = ImageViewer.picturePath;
-//							test1.setPath(image, "");
-//							Test118Act.coeffNumber = test1.getCoeffNumber();
-//							// Test118Act.coeffNumber = 1536;
-//							// Log.i(Test118Act.TAG, coeffNumber+"");
-//							int[] array = new int[Test118Act.coeffNumber];
-							
 							String imagePath = ImageViewer.picturePath;
 							String password = DecodePasswordInput.decodePassword;
 							Log.i("test", imagePath + "+" + password);
-							// imagePath = "/sdcard/test.jpg";
-							// password = "abc123";
-							
-							// for reflection test
-							Looper.prepare();
-							message = r.generateAlgorithm().extract(imagePath, password);
-//							boolean extractedSuccess = true;
-							
-//							int[] coeff = decodeEmbededImage(array, imagePath,
-//									Test118Act.coeffNumber);
-//							boolean extractedSuccess = Extract.extract(coeff,
-//									password);
 
-							
+							// Extract image with the algorithm
+							// generated dynamically
+							Looper.prepare();
+							message = r.generateAlgorithm().extract(imagePath,
+									password);
+
 							if (message != null) {
-//							if (extractedSuccess) {
 								handler.obtainMessage(0).sendToTarget();
 							} else {
 								handler.obtainMessage(1).sendToTarget();
@@ -166,13 +128,6 @@ public class DecodePasswordInput extends Activity {
 				}
 			}
 		});
-	}
-
-	private static native int[] decodeEmbededImage(int[] coeff,
-			String imagePath, int coeffNumber);
-
-	static {
-		System.loadLibrary("Test118");
 	}
 
 	public void showDecodeFailDialog() {
@@ -192,33 +147,18 @@ public class DecodePasswordInput extends Activity {
 
 	private Handler handler = new Handler() {
 		@Override
-		public void handleMessage(Message msg) {// handler���յ���Ϣ��ͻ�ִ�д˷���
-//			sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
-//					Uri.parse("file://"
-//							+ Environment.getExternalStorageDirectory()
-//							+ "/encoded/")));
-			mpDialog.dismiss();// �ر�ProgressDialog
+		public void handleMessage(Message msg) {
+			// Commented out because of Android 4.4 regulations
+			// sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,
+			// Uri.parse("file://"
+			// + Environment.getExternalStorageDirectory()
+			// + "/encoded/")));
+			mpDialog.dismiss();
 
 			switch (msg.what) {
 			case 0:
-				// For F5, read from content.txt
-//				String fileName = MainActivity.CONFIG_PATH + "content.txt";// �ļ�·��
-//				String content = "";
-//				try {
-//					FileInputStream fin = new FileInputStream(fileName);
-//					int length = fin.available();
-//					byte[] buffer = new byte[length];
-//					fin.read(buffer);
-//					content = EncodingUtils.getString(buffer, "GBK");// //��Y.txt�ı�������ѡ����ʵı��룬�����������
-//					fin.close();// �ر���Դ
-//
-//				} catch (Exception e) {
-//				}
-				
 				String content = message;
-
 				if (!content.equals("")) {
-
 					Intent intent = new Intent();
 					intent.setClass(DecodePasswordInput.this,
 							DecodeSuccess.class);

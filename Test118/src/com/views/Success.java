@@ -18,6 +18,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This is the activity class responsible for creating and handling actions in
+ * success.xml. This page is responsible for showing the stego image and offer
+ * the user the choice to share.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
+
 public class Success extends Activity {
 	String outputPath;
 
@@ -34,11 +43,7 @@ public class Success extends Activity {
 		Button shareButton = (Button) findViewById(R.id.button2);
 		ImageView imageView = (ImageView) findViewById(R.id.imgView);
 		imageView.setImageBitmap(BitmapFactory.decodeFile(outputPath));
-		// TODO
-		// path.setText("/storage/sdcard0/encoded/"+"a.bmp");
-
-		// For F5
-		// path.setText(outputPath);
+	
 		Toast.makeText(getApplicationContext(), "Saved in: "+outputPath,
 				Toast.LENGTH_LONG).show();
 		
@@ -46,31 +51,15 @@ public class Success extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// send via email
+				// Send via email
 				Intent intent = new Intent(
 						android.content.Intent.ACTION_SEND);
-				// ����
-				// File file = new
-				// File("/storage/sdcard0/encoded/"+"a.bmp");
+
 				File file = new File(outputPath);
-				// �ռ���
-				// intent.putExtra(android.content.Intent.EXTRA_EMAIL,new
-				// String[] {"pop1030123@163.com"});
-				// ����
-				intent.putExtra(
-						android.content.Intent.EXTRA_SUBJECT,
-						"Infomage");
-				// ����
-				// intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
+				intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Infomage");
 				intent.setType("application/octet-stream");
-				// ���޷�ȷ�Ϸ������͵�ʱ��ʹ���������
-				// intent.setType(��*/*��);
-				// ��û�и���,���ı�����ʱʹ���������
-				// intent.setType(��plain/text��);
 				intent.putExtra(Intent.EXTRA_STREAM,
 						Uri.fromFile(file));
-				// NoteActivity.mNext_tab =
-				// NoteActivity.NOTE_SETTING;
 				startActivity(Intent.createChooser(intent,
 						"Mail Chooser"));
 			}
@@ -88,54 +77,26 @@ public class Success extends Activity {
 				intent.putExtra("EXIT", true);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
-				// System.exit(0);
-				// android.os.Process.killProcess(android.os.Process.myPid());
-				// finish();
-				// Intent intent = new Intent();
-				// intent.setClass(Success.this, MainActivity.class);
-				// intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				// intent.addCategory(Intent.CATEGORY_HOME);
-				// intent.putExtra("EXIT", false);
-				// startActivity(intent);
-				// android.os.Process.killProcess(android.os.Process.myPid());
+
 			}
 		});
+		
+		// Currently no use - used in the last version
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage("Do you want to send it via email now?")
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								// Intent intent = new Intent();
-								// intent.setClass(Success.this, Send.class);
-								// startActivity(intent);
 
 								Intent intent = new Intent(
 										android.content.Intent.ACTION_SEND);
-								// ����
-								// File file = new
-								// File("/storage/sdcard0/encoded/"+"a.bmp");
+
 								File file = new File(outputPath);
-								// �ռ���
-								// intent.putExtra(android.content.Intent.EXTRA_EMAIL,new
-								// String[] {"pop1030123@163.com"});
-								// ����
-								intent.putExtra(
-										android.content.Intent.EXTRA_SUBJECT,
-										"a.bmp");
-								// ����
-								// intent.putExtra(android.content.Intent.EXTRA_TEXT,"this is test extra.");
+								intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"a.bmp");
 								intent.setType("application/octet-stream");
-								// ���޷�ȷ�Ϸ������͵�ʱ��ʹ���������
-								// intent.setType(��*/*��);
-								// ��û�и���,���ı�����ʱʹ���������
-								// intent.setType(��plain/text��);
-								intent.putExtra(Intent.EXTRA_STREAM,
-										Uri.fromFile(file));
-								// NoteActivity.mNext_tab =
-								// NoteActivity.NOTE_SETTING;
-								startActivity(Intent.createChooser(intent,
-										"Share via:"));
+								intent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(file));
+								startActivity(Intent.createChooser(intent,"Share via:"));
 							}
 						})
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -56,8 +56,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
-//import views.R;
 
+/**
+ * This is the activity class responsible for configuration, creating and
+ * handling actions in activity_main.xml. It is further developed based on the
+ * NavigationDrawer demo of the Android Open Source Project. This page is the
+ * main interface of this application.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ * 
+ */
 
 public class MainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;
@@ -71,101 +79,99 @@ public class MainActivity extends Activity {
 	public static final int RESULT_LOAD_IMAGE = 1;
 	public static int INPUT_METHOD = 0;
 	public static String OUTPUT_PATH = "";
-	public static String CONFIG_PATH= Environment.getExternalStorageDirectory() + File.separator + "encoded1/";
+	public static String CONFIG_PATH = Environment
+			.getExternalStorageDirectory() + File.separator + "encoded1/";
 	public static int MODE_FLAG = 0;
 	public static int DECODE_FLAG = 0;
 	public static String ALGORITHM = "F5Factory";
 	public static long ALGORITHM_ID = 0;
 
-	public void initialization(){
-		
+	public void initialization() {
+
 		String defaultPath = CONFIG_PATH;
-		
-		try{
-		// Check for the default directory - encoded/, create if not exist
-        File file = new File(defaultPath);
-        if(!file.exists()){
-        	file.mkdirs();// �����ļ���
-        }
-         
-        // Check for test.txt in encoded/
-        File file6 = new File(defaultPath+"test.txt");
-        if (!file6.exists())
-        {
-                file6.createNewFile();
-        }
-        
-		// Check for the temp.jpg file in encoded/
-        File file2 = new File(defaultPath+"temp.jpg");
-        if (!file2.exists())
-        {
-                file2.createNewFile();
-        }
-		
-		// Check for the a.jpg file in encoded/
-        File file3 = new File(defaultPath+"a.jpg");
-        if (!file3.exists())
-        {
-                file3.createNewFile();
-        }
-		
-		// Check for the content.txt file in encoded/
-        File file4 = new File(defaultPath+"content.txt");
-        if (!file4.exists())
-        {
-                file4.createNewFile();
-        }
-		
-        File file7 = new File(defaultPath.replace("encoded1", "output"));
-        if(!file7.exists()){
-        	file7.mkdirs();// �����ļ���
-        }
-        
-		// Check for the configuration file, create if it does not exist
-        File file5 = new File(defaultPath+"configuration.txt");
-        if (!file5.exists())
-        {
-                file5.createNewFile();
-        
-                // Write parameters to the configuration file
-                BufferedWriter bw = new BufferedWriter(new FileWriter(file5));  
-                String toWrite = "CAMERA_NUMBER = 1\nOUTPUT_PATH = "+defaultPath.replace("encoded1", "output");				        		
-                bw.write(toWrite);
-                bw.close();
-        }
-		
-		
-		// Initialize the OUTPUT_PATH
-		
-			BufferedReader br = new BufferedReader(new FileReader(defaultPath+"configuration.txt"));
-			
-            String line = "";			                
-            while ((line = br.readLine()) != null) {
-                if(line.startsWith("OUTPUT_PATH")){
-                	String[] result = line.split("\\s");
-                	String path = result[result.length-1];	
-                	OUTPUT_PATH = path;
-                }
-            }
-            br.close();		
-            }catch(Exception e){}
-		
+
+		try {
+			// Check for the default directory - encoded/, create if not exist
+			File file = new File(defaultPath);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+
+			// Check for test.txt in encoded/
+			File file6 = new File(defaultPath + "test.txt");
+			if (!file6.exists()) {
+				file6.createNewFile();
+			}
+
+			// Check for the temp.jpg file in encoded/
+			File file2 = new File(defaultPath + "temp.jpg");
+			if (!file2.exists()) {
+				file2.createNewFile();
+			}
+
+			// Check for the a.jpg file in encoded/
+			File file3 = new File(defaultPath + "a.jpg");
+			if (!file3.exists()) {
+				file3.createNewFile();
+			}
+
+			// Check for the content.txt file in encoded/
+			File file4 = new File(defaultPath + "content.txt");
+			if (!file4.exists()) {
+				file4.createNewFile();
+			}
+
+			File file7 = new File(defaultPath.replace("encoded1", "output"));
+			if (!file7.exists()) {
+				file7.mkdirs();
+			}
+
+			// Check for the configuration file, create if it does not exist
+			File file5 = new File(defaultPath + "configuration.txt");
+			if (!file5.exists()) {
+				file5.createNewFile();
+
+				// Write parameters to the configuration file
+				BufferedWriter bw = new BufferedWriter(new FileWriter(file5));
+				String toWrite = "CAMERA_NUMBER = 1\nOUTPUT_PATH = "
+						+ defaultPath.replace("encoded1", "output");
+				bw.write(toWrite);
+				bw.close();
+			}
+
+			// Initialize the OUTPUT_PATH
+
+			BufferedReader br = new BufferedReader(new FileReader(defaultPath
+					+ "configuration.txt"));
+
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				if (line.startsWith("OUTPUT_PATH")) {
+					String[] result = line.split("\\s");
+					String path = result[result.length - 1];
+					OUTPUT_PATH = path;
+				}
+			}
+			br.close();
+		} catch (Exception e) {
+		}
+
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (getIntent().getBooleanExtra("EXIT", false)) {
-			 finish();
-			
-			}
+			finish();
+
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-        File file = new File(OUTPUT_PATH);
-        if(!file.exists()){
-        	file.mkdirs();// �����ļ���
-        }
-        initialization();
+		File file = new File(OUTPUT_PATH);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		initialization();
 		mTitle = mDrawerTitle = getTitle();
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -307,7 +313,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * Fragment that appears in the "content_frame", shows a planet
+	 * Fragment that appears in the "content_frame", shows the menu
 	 */
 	public static class PlanetFragment extends Fragment {
 		public static final String ARG_PLANET_NUMBER = "planet_number";
@@ -336,85 +342,64 @@ public class MainActivity extends Activity {
 						@Override
 						public void onClick(View v) {
 							MainActivity.MODE_FLAG = 0;
-							
-					        int imageNum = 0;
-					        Intent imageIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//					        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "Punch");
-//					        imagesFolder.mkdirs(); // <----
-//					        String fileName = "image_" + String.valueOf(imageNum) + ".jpg";
-//					        File output = new File(imagesFolder, fileName);
-//					        while (output.exists()){
-//					            imageNum++;
-//					            fileName = "image_" + String.valueOf(imageNum) + ".jpg";
-//					            output = new File(imagesFolder, fileName);
-//					        }
-//							File file = new File("/sdcard/myImage/");
-//							file.mkdirs();// �����ļ���
-//							String fileName = "/sdcard/myImage/111.jpg";
-//					        File output = new File(fileName);
-//					        try {
-//								File image = File.createTempFile(
-//										fileName, 
-//								        ".jpg", 
-//								        file
-//								    );
-//						
-//					        Uri uriSavedImage = Uri.fromFile(image);
-//					        imageIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-					        
-					        int pictureNumber = this.initiatePictureNumber();
-					        pictureName = "picture_"+pictureNumber+".jpg";
-					        
-					        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(OUTPUT_PATH, pictureName)));
-					        startActivityForResult(intent, 1);
-//							Intent intent = new Intent(
-//									MediaStore.ACTION_IMAGE_CAPTURE);
-//							startActivityForResult(imageIntent, 1);
-//					    	} catch (IOException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
+
+							int imageNum = 0;
+							Intent imageIntent = new Intent(
+									android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+							int pictureNumber = this.initiatePictureNumber();
+							pictureName = "picture_" + pictureNumber + ".jpg";
+
+							Intent intent = new Intent(
+									MediaStore.ACTION_IMAGE_CAPTURE);
+							intent.putExtra(MediaStore.EXTRA_OUTPUT,
+									Uri.fromFile(new File(OUTPUT_PATH,
+											pictureName)));
+							startActivityForResult(intent, 1);
+
 						}
-						
-						public int initiatePictureNumber(){
+
+						public int initiatePictureNumber() {
 							int number = 0;
 							int next = 0;
 							StringBuffer buffer = new StringBuffer();
-							
+
 							// Read the picture number from configuration file
-							try{
-							BufferedReader br = new BufferedReader(new FileReader(CONFIG_PATH+"configuration.txt"));
-							
-			                String line = "";			                
-			                while ((line = br.readLine()) != null) {
-			                    if(line.startsWith("CAMERA_NUMBER")){
-			                    	String[] result = line.split("\\s");
-			                    	number = Integer.parseInt(result[result.length-1]);	
-			                    	buffer.append(line+"\n");			                    	
-			                    }else{
-			                    	buffer.append(line+"\n");
-			                    }
-			                }
-			                br.close();
-			                
-			                // Write the new number to the configuration file
-			                next = number+1;
-			                File file = new File(CONFIG_PATH+"configuration.txt");
-			        		BufferedWriter bw = new BufferedWriter(new FileWriter(file));			               
-//			                String[] lines = (buffer.toString()).split("*");
-//		                    for (int count = 0; count < (lines.length); count++) {
-//		                    	bw.write(lines[count]);
-//		                    	bw.newLine();
-//		                    }	
-			        		String toWrite = buffer.toString().replace(""+number, ""+next);
-			        		bw.write(toWrite);
-		                    bw.close();
-	
-							}catch(Exception e){}
+							try {
+								BufferedReader br = new BufferedReader(
+										new FileReader(CONFIG_PATH
+												+ "configuration.txt"));
+
+								String line = "";
+								while ((line = br.readLine()) != null) {
+									if (line.startsWith("CAMERA_NUMBER")) {
+										String[] result = line.split("\\s");
+										number = Integer
+												.parseInt(result[result.length - 1]);
+										buffer.append(line + "\n");
+									} else {
+										buffer.append(line + "\n");
+									}
+								}
+								br.close();
+
+								// Write the new number to the configuration
+								// file
+								next = number + 1;
+								File file = new File(CONFIG_PATH
+										+ "configuration.txt");
+								BufferedWriter bw = new BufferedWriter(
+										new FileWriter(file));
+
+								String toWrite = buffer.toString().replace(
+										"" + number, "" + next);
+								bw.write(toWrite);
+								bw.close();
+
+							} catch (Exception e) {
+							}
 							return number;
 						}
-						
 
 					});
 
@@ -431,16 +416,6 @@ public class MainActivity extends Activity {
 
 						}
 					});
-			// int i = getArguments().getInt(ARG_PLANET_NUMBER);
-			// String planet =
-			// getResources().getStringArray(R.array.planets_array)[i];
-			//
-			// int imageId =
-			// getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-			// "drawable", getActivity().getPackageName());
-			// ((ImageView)
-			// rootView.findViewById(R.id.image)).setImageResource(imageId);
-			// getActivity().setTitle(planet);
 
 			int i = getArguments().getInt(ARG_PLANET_NUMBER);
 			Log.i(TAG, i + "");
@@ -449,8 +424,6 @@ public class MainActivity extends Activity {
 				MainActivity.MODE_FLAG = 1;
 				// int i = getArguments().getInt(ARG_PLANET_NUMBER);
 				rootView = inflater.inflate(R.layout.decode, container, false);
-				// Image image =
-				// Toolkit.getDefaultToolkit().getImage(inFileName);
 				rootView.findViewById(R.id.button1).setOnClickListener(
 						new View.OnClickListener() {
 
@@ -476,41 +449,43 @@ public class MainActivity extends Activity {
 					radioButtonText.setChecked(true);
 				if (INPUT_METHOD == 1)
 					radioButtonFile.setChecked(true);
-				
+
 				outputPath = (EditText) rootView.findViewById(R.id.editText1);
 				outputPath.setText(OUTPUT_PATH);
-				
-				spinner = (Spinner)rootView.findViewById(R.id.spinner);
-				adapter = ArrayAdapter.createFromResource(getActivity(), R.array.algorithms, android.R.layout.simple_spinner_item);
-				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);				
+
+				spinner = (Spinner) rootView.findViewById(R.id.spinner);
+				adapter = ArrayAdapter.createFromResource(getActivity(),
+						R.array.algorithms,
+						android.R.layout.simple_spinner_item);
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				spinner.setAdapter(adapter);
-				spinner.setSelection((int)MainActivity.ALGORITHM_ID);
+				spinner.setSelection((int) MainActivity.ALGORITHM_ID);
 				spinner.setVisibility(View.VISIBLE);
-				spinner.setOnItemSelectedListener(
-						new OnItemSelectedListener(){  
-					        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {  
-/*					        	MainActivity.ALGORITHM = adapter.getItem(arg2).toString();
-					        	MainActivity.ALGORITHM_ID = adapter.getItemId(arg2);*/
-					        	spinnerItemId = arg2;
-					            Log.i("spinner",adapter.getItem(arg2).toString()+" "+arg2);
-					        }  
-					  
-					        public void onNothingSelected(AdapterView<?> arg0) {  
-					              
-					        }  
-					          
-					    }  
-						
+				spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+					public void onItemSelected(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						spinnerItemId = arg2;
+						Log.i("spinner", adapter.getItem(arg2).toString() + " "
+								+ arg2);
+					}
+
+					public void onNothingSelected(AdapterView<?> arg0) {
+
+					}
+
+				}
+
 				);
-				
+
 				rootView.findViewById(R.id.save).setOnClickListener(
 						new View.OnClickListener() {
 
 							@Override
 							public void onClick(View arg0) {
 
-								String newPath = outputPath.getText().toString();								
-								saveToConfiguration(newPath);								
+								String newPath = outputPath.getText()
+										.toString();
+								saveToConfiguration(newPath);
 
 								int radioButtonId = group
 										.getCheckedRadioButtonId();
@@ -522,71 +497,87 @@ public class MainActivity extends Activity {
 									INPUT_METHOD = 0;
 								else
 									INPUT_METHOD = 1;
-								
-					        	MainActivity.ALGORITHM = adapter.getItem(spinnerItemId).toString();
-					        	MainActivity.ALGORITHM_ID = adapter.getItemId(spinnerItemId);
-					        	
+
+								MainActivity.ALGORITHM = adapter.getItem(
+										spinnerItemId).toString();
+								MainActivity.ALGORITHM_ID = adapter
+										.getItemId(spinnerItemId);
+
 								Toast.makeText(getActivity(),
 										"Saved!" + INPUT_METHOD,
-										Toast.LENGTH_SHORT).show();								
-								
+										Toast.LENGTH_SHORT).show();
+
 							}
-						
-						public void saveToConfiguration(String newPath){
-							try{
-								// Check if the new path is legal
-								if(!newPath.startsWith(Environment.getExternalStorageDirectory().toString())){
-									this.showWrongDialog(newPath);
+
+							public void saveToConfiguration(String newPath) {
+								try {
+									// Check if the new path is legal
+									if (!newPath.startsWith(Environment
+											.getExternalStorageDirectory()
+											.toString())) {
+										this.showWrongDialog(newPath);
+									} else {
+										// Check if directory exist and create
+										// if needed
+										File destDir = new File(newPath);
+										if (!destDir.exists()) {
+											destDir.mkdirs();
+										}
+
+										// Read from configuration
+										BufferedReader br = new BufferedReader(
+												new FileReader(CONFIG_PATH
+														+ "configuration.txt"));
+										StringBuffer buffer = new StringBuffer(
+												"");
+										String line = "";
+										String oldPath = "";
+										while ((line = br.readLine()) != null) {
+											if (line.startsWith("OUTPUT_PATH")) {
+												String[] parts = line
+														.split("\\s");
+												oldPath = parts[parts.length - 1];
+											}
+											buffer.append(line + "\n");
+
+										}
+										br.close();
+
+										// Write to the configuration file
+										File file = new File(CONFIG_PATH
+												+ "configuration.txt");
+										BufferedWriter bw = new BufferedWriter(
+												new FileWriter(file));
+										String toWrite = buffer.toString()
+												.replace(oldPath, newPath);
+										bw.write(toWrite);
+										bw.close();
+										OUTPUT_PATH = newPath;
+									}
+
+								} catch (Exception e) {
 								}
-								else{
-								// Check if directory exist and create if needed
-								File destDir = new File(newPath);
-								if (!destDir.exists()) {
-									destDir.mkdirs();
-								}	
-									
-								// Read from configuration
-								BufferedReader br = new BufferedReader(new FileReader(CONFIG_PATH+"configuration.txt"));
-								StringBuffer buffer = new StringBuffer("");
-				                String line = "";	
-				                String oldPath = "";
-				                while ((line = br.readLine()) != null) {
-				                	if(line.startsWith("OUTPUT_PATH")){
-				                		String[] parts = line.split("\\s");
-				                		oldPath = parts[parts.length-1];
-				                	}
-				                    buffer.append(line+"\n");	
-				                    	
-				                }
-				                br.close();
-				                
-				                // Write to the configuration file				               
-				                File file = new File(CONFIG_PATH+"configuration.txt");
-				        		BufferedWriter bw = new BufferedWriter(new FileWriter(file));  
-				        		String toWrite = buffer.toString().replace(oldPath, newPath);				        		
-				        		bw.write(toWrite);
-			                    bw.close();
-			                    OUTPUT_PATH = newPath;
-								}
-								
-								}catch(Exception e){}
-						}
-						
-						public void showWrongDialog(String newPath){
-							AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-							builder.setMessage(newPath)
-									.setCancelable(false)
-									.setPositiveButton("OK",
-											new DialogInterface.OnClickListener() {
-												public void onClick(DialogInterface dialog, int id) {
-													dialog.cancel();
-												}
-											});
-							AlertDialog alert = builder.create();
-							alert.setTitle("Illegal path:");
-							alert.show();
-						}
-						
+							}
+
+							public void showWrongDialog(String newPath) {
+								AlertDialog.Builder builder = new AlertDialog.Builder(
+										getActivity());
+								builder.setMessage(newPath)
+										.setCancelable(false)
+										.setPositiveButton(
+												"OK",
+												new DialogInterface.OnClickListener() {
+													public void onClick(
+															DialogInterface dialog,
+															int id) {
+														dialog.cancel();
+													}
+												});
+								AlertDialog alert = builder.create();
+								alert.setTitle("Illegal path:");
+								alert.show();
+							}
+
 						});
 
 			}
@@ -598,7 +589,8 @@ public class MainActivity extends Activity {
 
 							@Override
 							public void onClick(View arg0) {
-								Intent i = new Intent(getActivity(),Manual.class);
+								Intent i = new Intent(getActivity(),
+										Manual.class);
 								startActivity(i);
 
 							}
@@ -608,7 +600,8 @@ public class MainActivity extends Activity {
 
 							@Override
 							public void onClick(View arg0) {
-								Intent i = new Intent(getActivity(),About.class);
+								Intent i = new Intent(getActivity(),
+										About.class);
 								startActivity(i);
 
 							}
@@ -618,7 +611,8 @@ public class MainActivity extends Activity {
 
 							@Override
 							public void onClick(View arg0) {
-								Intent i = new Intent(getActivity(),License.class);
+								Intent i = new Intent(getActivity(),
+										License.class);
 								startActivity(i);
 
 							}
@@ -631,7 +625,6 @@ public class MainActivity extends Activity {
 
 			return rootView;
 		}
-
 
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,
@@ -657,41 +650,6 @@ public class MainActivity extends Activity {
 			}
 			if (resultCode == Activity.RESULT_OK && MODE_FLAG == 0) {
 
-//				String sdStatus = Environment.getExternalStorageState();
-//				if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // ���sd�Ƿ����
-//					Log.v("TestFile",
-//							"SD card is not avaiable/writeable right now.");
-//					return;
-//				}
-//
-//				Bundle bundle = data.getExtras();
-//				Bitmap bitmap = (Bitmap) bundle.get("data");// ��ȡ���ص���ݣ���ת��ΪBitmapͼƬ��ʽ
-//				FileOutputStream b = null;
-//				File file = new File("/sdcard/myImage/");
-//				file.mkdirs();// �����ļ���
-//				String fileName = "/sdcard/myImage/111.jpg";
-//
-//				try {
-//					b = new FileOutputStream(fileName);
-//				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// �����д���ļ�
-//				} catch (FileNotFoundException e) {
-//					e.printStackTrace();
-//				} finally {
-//					try {
-//						b.flush();
-//						b.close();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//
-//				// ((ImageView)
-//				// findViewById(R.id.imageView)).setImageBitmap(bitmap);//
-//				// ��ͼƬ��ʾ��ImageView��
-//				// ((ImageView) findViewById(R.id.imageView))
-//				// .setImageBitmap(BitmapFactory.decodeFile(fileName));
-				//String fileName ="/sdcard/encoded/original.jpg";
-				//String fileName = Environment.getExternalStorageDirectory() + File.separator + "encoded/original.jpg";
 				String fileName = OUTPUT_PATH + pictureName;
 				Log.i(TAG, fileName);
 				Intent intent = new Intent();

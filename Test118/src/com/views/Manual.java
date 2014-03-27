@@ -3,6 +3,13 @@ package com.views;
 import android.app.Activity;
 import android.os.Bundle;
 
+/**
+ * This is the activity class responsible for creating and handling actions in
+ * manual.xml.
+ * 
+ * @author Xing Wei(david.wx@foxmail.com)
+ */
+
 public class Manual extends Activity {
 
 	@Override
